@@ -16,6 +16,8 @@ final class CustomSlider: UIView {
         
         static let sliderBottom: CGFloat = 10
         static let sliderLeading: CGFloat = 20
+        
+        static let black: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
     }
     
     // MARK: - Variables
@@ -51,6 +53,7 @@ final class CustomSlider: UIView {
     private func configureUI() {
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
+        titleView.textColor = Constants.black
         
         for view in [slider, titleView] {
             addSubview(view)

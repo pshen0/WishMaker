@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "CROWNS.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

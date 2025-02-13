@@ -7,12 +7,7 @@
 
 import UIKit
 
-struct WishEventModel {
-    let title: String
-    let description: String
-    let startDate: String
-    let endDate: String
-}
+
 
 final class WishEventCell: UICollectionViewCell {
     
@@ -96,9 +91,9 @@ final class WishEventCell: UICollectionViewCell {
     }
     
     // MARK: - Cell Configuration
-    func configure(with event: WishEventModel) {
+    func configure(with event: CalendarEventModel) {
         titleLabel.text = event.title
-        descriptionLabel.text = event.description
+        descriptionLabel.text = event.note
         startDateLabel.text = "Start Date: \(event.startDate)"
         endDateLabel.text = "End Date: \(event.endDate)"
     }

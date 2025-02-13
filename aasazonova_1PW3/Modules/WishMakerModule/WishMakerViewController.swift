@@ -88,7 +88,6 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     }
     
     private func configureTitle() {
-        titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.text = Constants.titleText
         discriptionView.numberOfLines = Constants.numberLines
         discriptionView.lineBreakMode = .byWordWrapping

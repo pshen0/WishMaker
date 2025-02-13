@@ -12,11 +12,8 @@ final class WishStoringViewController: UIViewController {
     
     // MARK: - Constants
     enum Constants {
-        static let buttonHeight: CGFloat = 30
-        static let buttonTop: CGFloat = 10
-        static let buttonWidth: CGFloat = 100
-        static let buttonText: String = "go back"
-        static let buttonRadius: CGFloat = 10
+        static let backButtonTop: CGFloat = 20
+        static let backButtonLeft: CGFloat = 20
         
         static let tableCornerRadius: CGFloat = 10
         static let tableOffset: CGFloat = 10
@@ -27,12 +24,16 @@ final class WishStoringViewController: UIViewController {
         static let wishesKey = "wishesKey"
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
-        
         static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
+        
+        static let backImage: UIImage? = UIImage(
+            systemName: "chevron.backward",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        )
     }
     
     // MARK: - Variables
-    private let backButton: UIButton = UIButton(type: .system)
+    private let backButton: UIButton = UIButton()
     private let defaults = UserDefaults.standard
     var Array: [String] = []
     var table: UITableView = UITableView(frame: .zero)
@@ -50,19 +51,15 @@ final class WishStoringViewController: UIViewController {
     }
     
     private func configureBackButton() {
+        backButton.setImage(Constants.backImage, for: .normal)
+        backButton.tintColor = Constants.darkBlue
+        
         view.addSubview(backButton)
-        backButton.setHeight(Constants.buttonHeight)
-        backButton.pinTop(to: view, Constants.buttonTop)
-        backButton.pinCenterX(to: view)
-        backButton.setWidth(Constants.buttonWidth)
         
-        backButton.backgroundColor = Constants.darkBlue
-        backButton.setTitleColor(.white, for: .normal)
-        backButton.setTitle(Constants.buttonText, for: .normal)
-        backButton.titleLabel?.font = Constants.buttonFont
+        backButton.pinTop(to: view.safeAreaLayoutGuide.topAnchor, Constants.backButtonTop)
+        backButton.pinLeft(to: view.leadingAnchor, Constants.backButtonLeft)
         
-        backButton.layer.cornerRadius = Constants.buttonRadius
-        backButton.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     private func configureTable() {
@@ -71,13 +68,13 @@ final class WishStoringViewController: UIViewController {
         table.dataSource = self
         table.separatorStyle = .none
         table.layer.cornerRadius = Constants.tableCornerRadius
+        table.isUserInteractionEnabled = true
+        table.contentInset = .zero
         
         table.pin(to: view, Constants.tableOffset)
         
         table.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.reuseId)
         table.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.reuseId)
-        
-
     }
     
     private func loadWishes() {
@@ -90,13 +87,19 @@ final class WishStoringViewController: UIViewController {
         defaults.set(Array, forKey: Constants.wishesKey)
     }
     
+    private func deleteWish(at indexPath: IndexPath) {
+        Array.remove(at: indexPath.row)
+        table.deleteRows(at: [indexPath], with: .automatic)
+        saveWishes()
+        table.reloadData()
+    }
+    
     // MARK: - Actions
     @objc
-    private func backButtonPressed() {
+    private func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
 }
-
 
 // MARK: - UITableViewDataSource
 extension WishStoringViewController: UITableViewDataSource {
@@ -122,6 +125,11 @@ extension WishStoringViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.reuseId, for: indexPath) as! WrittenWishCell
             cell.configure(with: Array[indexPath.row])
+
+            cell.deleteAction = { [weak self] in
+                self?.deleteWish(at: indexPath)
+            }
+            
             return cell
         }
     }

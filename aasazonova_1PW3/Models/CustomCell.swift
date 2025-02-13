@@ -14,23 +14,26 @@ final class WrittenWishCell: UITableViewCell {
     private enum Constants {
         static let wrapColor: UIColor = .white
         static let wrapRadius: CGFloat = 16
-        static let wrapOffsetV: CGFloat = 5
+        static let wrapOffsetV: CGFloat = 3
         static let wrapOffsetH: CGFloat = 10
         static let wishLabelOffset: CGFloat = 8
+        
+        static let trashImage: UIImage? = UIImage(systemName: "trash")
         
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
     }
     
     private let wishLabel: UILabel = UILabel()
-    private let wrap: UIView = UIView()
+    private let deleteButton: UIButton = UIButton()
+    
+    var deleteAction: (() -> Void)?
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = Constants.lightBlue
         configureUI()
-        
     }
     
     @available(*, unavailable)
@@ -45,25 +48,52 @@ final class WrittenWishCell: UITableViewCell {
     
     private func configureUI() {
         selectionStyle = .none
+        configureWrap()
+        configureLabel()
+        configureDeleteButton()
+    }
+    
+    private func configureWrap() {
+        contentView.backgroundColor = Constants.wrapColor
+        contentView.layer.cornerRadius = Constants.wrapRadius
         
-        wrap.backgroundColor = Constants.wrapColor
-        wrap.layer.cornerRadius = Constants.wrapRadius
-        addSubview(wrap)
-        
-        wrap.pinVertical(to: self, Constants.wrapOffsetV)
-        wrap.pinHorizontal(to: self, Constants.wrapOffsetH)
-        
+        contentView.pinVertical(to: self, Constants.wrapOffsetV)
+        contentView.pinHorizontal(to: self, Constants.wrapOffsetH)
+        contentView.setHeight(40)
+    }
+    
+    private func configureLabel() {
+        wishLabel.textColor = Constants.darkBlue
         wishLabel.numberOfLines = 0
         wishLabel.lineBreakMode = .byWordWrapping
         
-        wrap.addSubview(wishLabel)
-        wishLabel.pin(to: wrap, Constants.wishLabelOffset)
+        contentView.addSubview(wishLabel)
+        
+        wishLabel.pin(to: contentView, Constants.wishLabelOffset)
         wishLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         wishLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     }
     
+    private func configureDeleteButton() {
+        deleteButton.setImage(Constants.trashImage, for: .normal)
+        deleteButton.tintColor = Constants.darkBlue
+        
+        contentView.addSubview(deleteButton)
+        
+        
+        deleteButton.pinCenterY(to: contentView)
+        deleteButton.pinRight(to: contentView.trailingAnchor, 10)
+        
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        wishLabel.preferredMaxLayoutWidth = wrap.bounds.width - Constants.wishLabelOffset * 2
+        wishLabel.preferredMaxLayoutWidth = contentView.bounds.width - Constants.wishLabelOffset * 2
+    }
+    
+    @objc
+    private func deleteButtonTapped() {
+        deleteAction?()
     }
 }
