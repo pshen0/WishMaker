@@ -60,7 +60,7 @@ final class AddWishCell: UITableViewCell {
     // MARK: - Private funcs
     private func configureUI() {
         contentView.backgroundColor = Constants.lightBlue
-        configureLabel()
+        configureTitle()
         configureWishTextView()
         configureAddButton()
         
@@ -68,7 +68,7 @@ final class AddWishCell: UITableViewCell {
         contentView.addGestureRecognizer(tapGesture)
     }
     
-    private func configureLabel() {
+    private func configureTitle() {
         wishTitle.text = Constants.wishTitleText
         wishTitle.font = UIFont.boldSystemFont(ofSize: Constants.wishTitleSize)
         wishTitle.textColor = Constants.darkBlue

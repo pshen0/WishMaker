@@ -52,7 +52,6 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
             layout.minimumLineSpacing = 0
             layout.invalidateLayout()
         }
-        
     }
     
     private func configureCollection() {
