@@ -16,13 +16,18 @@
 		0F2848262CDBE17800B02F2C /* aasazonova_1PW3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848252CDBE17800B02F2C /* aasazonova_1PW3Tests.swift */; };
 		0F2848302CDBE17800B02F2C /* aasazonova_1PW3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28482F2CDBE17800B02F2C /* aasazonova_1PW3UITests.swift */; };
 		0F2848322CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848312CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift */; };
-		0F2848402CDBE22C00B02F2C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28483F2CDBE22C00B02F2C /* Router.swift */; };
-		0F2848422CDBE24A00B02F2C /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848412CDBE24A00B02F2C /* Interactor.swift */; };
-		0F2848442CDBE26B00B02F2C /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848432CDBE26B00B02F2C /* Presenter.swift */; };
+		0F2848422CDBE24A00B02F2C /* WishMakerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848412CDBE24A00B02F2C /* WishMakerInteractor.swift */; };
+		0F2848442CDBE26B00B02F2C /* WishMakerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848432CDBE26B00B02F2C /* WishMakerPresenter.swift */; };
 		0F2848462CDBE2BA00B02F2C /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */; };
-		0F2848482CDBE39100B02F2C /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848472CDBE39100B02F2C /* Pin.swift */; };
-		0F28484A2CDBF80800B02F2C /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848492CDBF80800B02F2C /* WishStoringViewController.swift */; };
+		0F2848482CDBE39100B02F2C /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848472CDBE39100B02F2C /* UIView+Pin.swift */; };
 		0F28484C2CDC1B1500B02F2C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28484B2CDC1B1500B02F2C /* CustomCell.swift */; };
+		0FEA386B2D5D28F300D0DE7E /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848492CDBF80800B02F2C /* WishStoringViewController.swift */; };
+		0FEA386D2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA386C2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift */; };
+		0FEA38732D5D44D100D0DE7E /* WishCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38722D5D44D100D0DE7E /* WishCalendarViewController.swift */; };
+		0FEA38752D5D498900D0DE7E /* WishCalendarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38742D5D498900D0DE7E /* WishCalendarInteractor.swift */; };
+		0FEA38772D5D4C1E00D0DE7E /* WishCalendarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38762D5D4C1E00D0DE7E /* WishCalendarPresenter.swift */; };
+		0FEA38792D5D4C2D00D0DE7E /* WishCalendarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38782D5D4C2D00D0DE7E /* WishCalendarModuleBuilder.swift */; };
+		0FEA387B2D5D567400D0DE7E /* WishEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA387A2D5D567400D0DE7E /* WishEventCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,13 +61,18 @@
 		0F28482B2CDBE17800B02F2C /* aasazonova_1PW3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aasazonova_1PW3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F28482F2CDBE17800B02F2C /* aasazonova_1PW3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aasazonova_1PW3UITests.swift; sourceTree = "<group>"; };
 		0F2848312CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aasazonova_1PW3UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0F28483F2CDBE22C00B02F2C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		0F2848412CDBE24A00B02F2C /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
-		0F2848432CDBE26B00B02F2C /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		0F2848412CDBE24A00B02F2C /* WishMakerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerInteractor.swift; sourceTree = "<group>"; };
+		0F2848432CDBE26B00B02F2C /* WishMakerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerPresenter.swift; sourceTree = "<group>"; };
 		0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		0F2848472CDBE39100B02F2C /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		0F2848472CDBE39100B02F2C /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		0F2848492CDBF80800B02F2C /* WishStoringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishStoringViewController.swift; sourceTree = "<group>"; };
 		0F28484B2CDC1B1500B02F2C /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		0FEA386C2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerModuleBuilder.swift; sourceTree = "<group>"; };
+		0FEA38722D5D44D100D0DE7E /* WishCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarViewController.swift; sourceTree = "<group>"; };
+		0FEA38742D5D498900D0DE7E /* WishCalendarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarInteractor.swift; sourceTree = "<group>"; };
+		0FEA38762D5D4C1E00D0DE7E /* WishCalendarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarPresenter.swift; sourceTree = "<group>"; };
+		0FEA38782D5D4C2D00D0DE7E /* WishCalendarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarModuleBuilder.swift; sourceTree = "<group>"; };
+		0FEA387A2D5D567400D0DE7E /* WishEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishEventCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				0F28480D2CDBE17600B02F2C /* aasazonova_1PW3 */,
-				0F2848242CDBE17800B02F2C /* aasazonova_1PW3Tests */,
 				0F28482E2CDBE17800B02F2C /* aasazonova_1PW3UITests */,
+				0F2848242CDBE17800B02F2C /* aasazonova_1PW3Tests */,
 				0F28480C2CDBE17600B02F2C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -113,16 +123,12 @@
 		0F28480D2CDBE17600B02F2C /* aasazonova_1PW3 */ = {
 			isa = PBXGroup;
 			children = (
-				0F28483E2CDBE20B00B02F2C /* Module */,
-				0F28480E2CDBE17600B02F2C /* AppDelegate.swift */,
-				0F2848102CDBE17600B02F2C /* SceneDelegate.swift */,
-				0F2848172CDBE17800B02F2C /* Assets.xcassets */,
-				0F2848192CDBE17800B02F2C /* LaunchScreen.storyboard */,
 				0F28481C2CDBE17800B02F2C /* Info.plist */,
-				0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */,
-				0F2848472CDBE39100B02F2C /* Pin.swift */,
-				0F28484B2CDC1B1500B02F2C /* CustomCell.swift */,
-				0F0FCADC2CDD49760032FCB8 /* AddWishCell.swift */,
+				0FEA38692D5D28C700D0DE7E /* Extensions */,
+				0FEA38682D5D289A00D0DE7E /* Application */,
+				0FEA38672D5D285200D0DE7E /* CustomObjects */,
+				0F28483E2CDBE20B00B02F2C /* Modules */,
+				0FEA386E2D5D300400D0DE7E /* Resources */,
 			);
 			path = aasazonova_1PW3;
 			sourceTree = "<group>";
@@ -144,16 +150,81 @@
 			path = aasazonova_1PW3UITests;
 			sourceTree = "<group>";
 		};
-		0F28483E2CDBE20B00B02F2C /* Module */ = {
+		0F28483E2CDBE20B00B02F2C /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				0FEA38712D5D44B400D0DE7E /* WishCalendarModule */,
+				0FEA38702D5D305400D0DE7E /* WishStoringModule */,
+				0FEA386F2D5D302200D0DE7E /* WishMakerModule */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		0FEA38672D5D285200D0DE7E /* CustomObjects */ = {
+			isa = PBXGroup;
+			children = (
+				0F0FCADC2CDD49760032FCB8 /* AddWishCell.swift */,
+				0F28484B2CDC1B1500B02F2C /* CustomCell.swift */,
+				0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */,
+				0FEA387A2D5D567400D0DE7E /* WishEventCell.swift */,
+			);
+			path = CustomObjects;
+			sourceTree = "<group>";
+		};
+		0FEA38682D5D289A00D0DE7E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0F2848102CDBE17600B02F2C /* SceneDelegate.swift */,
+				0F28480E2CDBE17600B02F2C /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		0FEA38692D5D28C700D0DE7E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F2848472CDBE39100B02F2C /* UIView+Pin.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0FEA386E2D5D300400D0DE7E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F2848192CDBE17800B02F2C /* LaunchScreen.storyboard */,
+				0F2848172CDBE17800B02F2C /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0FEA386F2D5D302200D0DE7E /* WishMakerModule */ = {
 			isa = PBXGroup;
 			children = (
 				0F2848122CDBE17600B02F2C /* WishMakerViewController.swift */,
-				0F28483F2CDBE22C00B02F2C /* Router.swift */,
-				0F2848412CDBE24A00B02F2C /* Interactor.swift */,
-				0F2848432CDBE26B00B02F2C /* Presenter.swift */,
+				0F2848412CDBE24A00B02F2C /* WishMakerInteractor.swift */,
+				0F2848432CDBE26B00B02F2C /* WishMakerPresenter.swift */,
+				0FEA386C2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift */,
+			);
+			path = WishMakerModule;
+			sourceTree = "<group>";
+		};
+		0FEA38702D5D305400D0DE7E /* WishStoringModule */ = {
+			isa = PBXGroup;
+			children = (
 				0F2848492CDBF80800B02F2C /* WishStoringViewController.swift */,
 			);
-			path = Module;
+			path = WishStoringModule;
+			sourceTree = "<group>";
+		};
+		0FEA38712D5D44B400D0DE7E /* WishCalendarModule */ = {
+			isa = PBXGroup;
+			children = (
+				0FEA38722D5D44D100D0DE7E /* WishCalendarViewController.swift */,
+				0FEA38742D5D498900D0DE7E /* WishCalendarInteractor.swift */,
+				0FEA38762D5D4C1E00D0DE7E /* WishCalendarPresenter.swift */,
+				0FEA38782D5D4C2D00D0DE7E /* WishCalendarModuleBuilder.swift */,
+			);
+			path = WishCalendarModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,15 +357,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F28484A2CDBF80800B02F2C /* WishStoringViewController.swift in Sources */,
-				0F2848442CDBE26B00B02F2C /* Presenter.swift in Sources */,
+				0F2848442CDBE26B00B02F2C /* WishMakerPresenter.swift in Sources */,
+				0FEA386B2D5D28F300D0DE7E /* WishStoringViewController.swift in Sources */,
 				0F28484C2CDC1B1500B02F2C /* CustomCell.swift in Sources */,
 				0F2848462CDBE2BA00B02F2C /* CustomSlider.swift in Sources */,
 				0F0FCADD2CDD49760032FCB8 /* AddWishCell.swift in Sources */,
-				0F2848402CDBE22C00B02F2C /* Router.swift in Sources */,
-				0F2848482CDBE39100B02F2C /* Pin.swift in Sources */,
+				0FEA38792D5D4C2D00D0DE7E /* WishCalendarModuleBuilder.swift in Sources */,
+				0F2848482CDBE39100B02F2C /* UIView+Pin.swift in Sources */,
+				0FEA38732D5D44D100D0DE7E /* WishCalendarViewController.swift in Sources */,
+				0FEA38752D5D498900D0DE7E /* WishCalendarInteractor.swift in Sources */,
+				0FEA386D2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift in Sources */,
 				0F2848132CDBE17600B02F2C /* WishMakerViewController.swift in Sources */,
-				0F2848422CDBE24A00B02F2C /* Interactor.swift in Sources */,
+				0FEA387B2D5D567400D0DE7E /* WishEventCell.swift in Sources */,
+				0F2848422CDBE24A00B02F2C /* WishMakerInteractor.swift in Sources */,
+				0FEA38772D5D4C1E00D0DE7E /* WishCalendarPresenter.swift in Sources */,
 				0F28480F2CDBE17600B02F2C /* AppDelegate.swift in Sources */,
 				0F2848112CDBE17600B02F2C /* SceneDelegate.swift in Sources */,
 			);

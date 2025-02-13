@@ -29,6 +29,11 @@ final class AddWishCell: UITableViewCell {
         static let addButtonWidth: CGFloat = 100
         static let addButtonTitle: String = "Add wish"
         static let addButtonRadius: CGFloat = 10
+        
+        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
+        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        
+        static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
         }
     
     // MARK: - Variables
@@ -47,14 +52,15 @@ final class AddWishCell: UITableViewCell {
     }
     
     @objc private func addWishTapped() {
-        guard let text = wishTextView.text, !text.isEmpty else { return }
+        guard let text = wishTextView.text, !text.isEmpty && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return }
         addWish?(text)
         wishTextView.text = ""
     }
     
     // MARK: - Private funcs
     private func configureUI() {
-        contentView.backgroundColor = .black
+        contentView.backgroundColor = Constants.lightBlue
         wishTextView.layer.cornerRadius = Constants.wishTextViewRadius
         wishTextView.layer.borderWidth = Constants.wishTextViewBorderWidth
         wishTextView.layer.borderColor = UIColor.lightGray.cgColor
@@ -62,8 +68,9 @@ final class AddWishCell: UITableViewCell {
         wishTextView.font = UIFont.systemFont(ofSize: Constants.wishTextViewFontSize)
         
         addButton.setTitle(Constants.addButtonTitle, for: .normal)
-        addButton.backgroundColor = .white
-        addButton.setTitleColor(.black, for: .normal)
+        addButton.backgroundColor = Constants.darkBlue
+        addButton.setTitleColor(.white, for: .normal)
+        addButton.titleLabel?.font = Constants.buttonFont
         addButton.addTarget(self, action: #selector(addWishTapped), for: .touchUpInside)
         
         contentView.addSubview(wishTextView)
