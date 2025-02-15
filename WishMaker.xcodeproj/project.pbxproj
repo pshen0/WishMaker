@@ -13,9 +13,6 @@
 		0F2848132CDBE17600B02F2C /* WishMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848122CDBE17600B02F2C /* WishMakerViewController.swift */; };
 		0F2848182CDBE17800B02F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F2848172CDBE17800B02F2C /* Assets.xcassets */; };
 		0F28481B2CDBE17800B02F2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F2848192CDBE17800B02F2C /* LaunchScreen.storyboard */; };
-		0F2848262CDBE17800B02F2C /* aasazonova_1PW3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848252CDBE17800B02F2C /* aasazonova_1PW3Tests.swift */; };
-		0F2848302CDBE17800B02F2C /* aasazonova_1PW3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28482F2CDBE17800B02F2C /* aasazonova_1PW3UITests.swift */; };
-		0F2848322CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848312CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift */; };
 		0F2848422CDBE24A00B02F2C /* WishMakerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848412CDBE24A00B02F2C /* WishMakerInteractor.swift */; };
 		0F2848442CDBE26B00B02F2C /* WishMakerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848432CDBE26B00B02F2C /* WishMakerPresenter.swift */; };
 		0F2848462CDBE2BA00B02F2C /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */; };
@@ -35,37 +32,15 @@
 		0FEA38862D5E354200D0DE7E /* WishEventCreationModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38852D5E354200D0DE7E /* WishEventCreationModuleBuilder.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0F2848222CDBE17800B02F2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0F2848032CDBE17600B02F2C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F28480A2CDBE17600B02F2C;
-			remoteInfo = aasazonova_1PW3;
-		};
-		0F28482C2CDBE17800B02F2C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0F2848032CDBE17600B02F2C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F28480A2CDBE17600B02F2C;
-			remoteInfo = aasazonova_1PW3;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0F0FCADC2CDD49760032FCB8 /* AddWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishCell.swift; sourceTree = "<group>"; };
-		0F28480B2CDBE17600B02F2C /* aasazonova_1PW3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aasazonova_1PW3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F28480B2CDBE17600B02F2C /* WishMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F28480E2CDBE17600B02F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F2848102CDBE17600B02F2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0F2848122CDBE17600B02F2C /* WishMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerViewController.swift; sourceTree = "<group>"; };
 		0F2848172CDBE17800B02F2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F28481A2CDBE17800B02F2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F28481C2CDBE17800B02F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F2848212CDBE17800B02F2C /* aasazonova_1PW3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aasazonova_1PW3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F2848252CDBE17800B02F2C /* aasazonova_1PW3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aasazonova_1PW3Tests.swift; sourceTree = "<group>"; };
-		0F28482B2CDBE17800B02F2C /* aasazonova_1PW3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aasazonova_1PW3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F28482F2CDBE17800B02F2C /* aasazonova_1PW3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aasazonova_1PW3UITests.swift; sourceTree = "<group>"; };
-		0F2848312CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aasazonova_1PW3UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F2848412CDBE24A00B02F2C /* WishMakerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerInteractor.swift; sourceTree = "<group>"; };
 		0F2848432CDBE26B00B02F2C /* WishMakerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerPresenter.swift; sourceTree = "<group>"; };
 		0F2848452CDBE2BA00B02F2C /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
@@ -93,29 +68,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F28481E2CDBE17800B02F2C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F2848282CDBE17800B02F2C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0F2848022CDBE17600B02F2C = {
 			isa = PBXGroup;
 			children = (
-				0F28480D2CDBE17600B02F2C /* aasazonova_1PW3 */,
-				0F28482E2CDBE17800B02F2C /* aasazonova_1PW3UITests */,
-				0F2848242CDBE17800B02F2C /* aasazonova_1PW3Tests */,
+				0F28480D2CDBE17600B02F2C /* WishMaker */,
 				0F28480C2CDBE17600B02F2C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -123,41 +82,21 @@
 		0F28480C2CDBE17600B02F2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0F28480B2CDBE17600B02F2C /* aasazonova_1PW3.app */,
-				0F2848212CDBE17800B02F2C /* aasazonova_1PW3Tests.xctest */,
-				0F28482B2CDBE17800B02F2C /* aasazonova_1PW3UITests.xctest */,
+				0F28480B2CDBE17600B02F2C /* WishMaker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0F28480D2CDBE17600B02F2C /* aasazonova_1PW3 */ = {
+		0F28480D2CDBE17600B02F2C /* WishMaker */ = {
 			isa = PBXGroup;
 			children = (
-				0F28481C2CDBE17800B02F2C /* Info.plist */,
 				0FEA38692D5D28C700D0DE7E /* Extensions */,
 				0FEA38682D5D289A00D0DE7E /* Application */,
 				0FEA38672D5D285200D0DE7E /* Models */,
 				0F28483E2CDBE20B00B02F2C /* Modules */,
 				0FEA386E2D5D300400D0DE7E /* Resources */,
 			);
-			path = aasazonova_1PW3;
-			sourceTree = "<group>";
-		};
-		0F2848242CDBE17800B02F2C /* aasazonova_1PW3Tests */ = {
-			isa = PBXGroup;
-			children = (
-				0F2848252CDBE17800B02F2C /* aasazonova_1PW3Tests.swift */,
-			);
-			path = aasazonova_1PW3Tests;
-			sourceTree = "<group>";
-		};
-		0F28482E2CDBE17800B02F2C /* aasazonova_1PW3UITests */ = {
-			isa = PBXGroup;
-			children = (
-				0F28482F2CDBE17800B02F2C /* aasazonova_1PW3UITests.swift */,
-				0F2848312CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift */,
-			);
-			path = aasazonova_1PW3UITests;
+			path = WishMaker;
 			sourceTree = "<group>";
 		};
 		0F28483E2CDBE20B00B02F2C /* Modules */ = {
@@ -203,6 +142,7 @@
 		0FEA386E2D5D300400D0DE7E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F28481C2CDBE17800B02F2C /* Info.plist */,
 				0F2848192CDBE17800B02F2C /* LaunchScreen.storyboard */,
 				0F2848172CDBE17800B02F2C /* Assets.xcassets */,
 			);
@@ -253,9 +193,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0F28480A2CDBE17600B02F2C /* aasazonova_1PW3 */ = {
+		0F28480A2CDBE17600B02F2C /* WishMaker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0F2848352CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3" */;
+			buildConfigurationList = 0F2848352CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "WishMaker" */;
 			buildPhases = (
 				0F2848072CDBE17600B02F2C /* Sources */,
 				0F2848082CDBE17600B02F2C /* Frameworks */,
@@ -265,46 +205,10 @@
 			);
 			dependencies = (
 			);
-			name = aasazonova_1PW3;
+			name = WishMaker;
 			productName = aasazonova_1PW3;
-			productReference = 0F28480B2CDBE17600B02F2C /* aasazonova_1PW3.app */;
+			productReference = 0F28480B2CDBE17600B02F2C /* WishMaker.app */;
 			productType = "com.apple.product-type.application";
-		};
-		0F2848202CDBE17800B02F2C /* aasazonova_1PW3Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F2848382CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3Tests" */;
-			buildPhases = (
-				0F28481D2CDBE17800B02F2C /* Sources */,
-				0F28481E2CDBE17800B02F2C /* Frameworks */,
-				0F28481F2CDBE17800B02F2C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0F2848232CDBE17800B02F2C /* PBXTargetDependency */,
-			);
-			name = aasazonova_1PW3Tests;
-			productName = aasazonova_1PW3Tests;
-			productReference = 0F2848212CDBE17800B02F2C /* aasazonova_1PW3Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		0F28482A2CDBE17800B02F2C /* aasazonova_1PW3UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F28483B2CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3UITests" */;
-			buildPhases = (
-				0F2848272CDBE17800B02F2C /* Sources */,
-				0F2848282CDBE17800B02F2C /* Frameworks */,
-				0F2848292CDBE17800B02F2C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0F28482D2CDBE17800B02F2C /* PBXTargetDependency */,
-			);
-			name = aasazonova_1PW3UITests;
-			productName = aasazonova_1PW3UITests;
-			productReference = 0F28482B2CDBE17800B02F2C /* aasazonova_1PW3UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -319,17 +223,9 @@
 					0F28480A2CDBE17600B02F2C = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					0F2848202CDBE17800B02F2C = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 0F28480A2CDBE17600B02F2C;
-					};
-					0F28482A2CDBE17800B02F2C = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 0F28480A2CDBE17600B02F2C;
-					};
 				};
 			};
-			buildConfigurationList = 0F2848062CDBE17600B02F2C /* Build configuration list for PBXProject "aasazonova_1PW3" */;
+			buildConfigurationList = 0F2848062CDBE17600B02F2C /* Build configuration list for PBXProject "WishMaker" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -342,9 +238,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0F28480A2CDBE17600B02F2C /* aasazonova_1PW3 */,
-				0F2848202CDBE17800B02F2C /* aasazonova_1PW3Tests */,
-				0F28482A2CDBE17800B02F2C /* aasazonova_1PW3UITests */,
+				0F28480A2CDBE17600B02F2C /* WishMaker */,
 			);
 		};
 /* End PBXProject section */
@@ -356,20 +250,6 @@
 			files = (
 				0F28481B2CDBE17800B02F2C /* LaunchScreen.storyboard in Resources */,
 				0F2848182CDBE17800B02F2C /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F28481F2CDBE17800B02F2C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F2848292CDBE17800B02F2C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,37 +284,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F28481D2CDBE17800B02F2C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F2848262CDBE17800B02F2C /* aasazonova_1PW3Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F2848272CDBE17800B02F2C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F2848322CDBE17800B02F2C /* aasazonova_1PW3UITestsLaunchTests.swift in Sources */,
-				0F2848302CDBE17800B02F2C /* aasazonova_1PW3UITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0F2848232CDBE17800B02F2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F28480A2CDBE17600B02F2C /* aasazonova_1PW3 */;
-			targetProxy = 0F2848222CDBE17800B02F2C /* PBXContainerItemProxy */;
-		};
-		0F28482D2CDBE17800B02F2C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F28480A2CDBE17600B02F2C /* aasazonova_1PW3 */;
-			targetProxy = 0F28482C2CDBE17800B02F2C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0F2848192CDBE17800B02F2C /* LaunchScreen.storyboard */ = {
@@ -576,7 +426,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D29HMVXL7B;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = aasazonova_1PW3/Info.plist;
+				INFOPLIST_FILE = WishMaker/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WishMaker;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -588,7 +439,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3";
+				PRODUCT_BUNDLE_IDENTIFIER = hse.WishMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -605,7 +456,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D29HMVXL7B;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = aasazonova_1PW3/Info.plist;
+				INFOPLIST_FILE = WishMaker/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WishMaker;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -617,7 +469,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3";
+				PRODUCT_BUNDLE_IDENTIFIER = hse.WishMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -625,82 +477,10 @@
 			};
 			name = Release;
 		};
-		0F2848392CDBE17800B02F2C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aasazonova_1PW3.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/aasazonova_1PW3";
-			};
-			name = Debug;
-		};
-		0F28483A2CDBE17800B02F2C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aasazonova_1PW3.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/aasazonova_1PW3";
-			};
-			name = Release;
-		};
-		0F28483C2CDBE17800B02F2C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = aasazonova_1PW3;
-			};
-			name = Debug;
-		};
-		0F28483D2CDBE17800B02F2C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "hse.aasazonova-1PW3UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = aasazonova_1PW3;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0F2848062CDBE17600B02F2C /* Build configuration list for PBXProject "aasazonova_1PW3" */ = {
+		0F2848062CDBE17600B02F2C /* Build configuration list for PBXProject "WishMaker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0F2848332CDBE17800B02F2C /* Debug */,
@@ -709,29 +489,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0F2848352CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3" */ = {
+		0F2848352CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "WishMaker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0F2848362CDBE17800B02F2C /* Debug */,
 				0F2848372CDBE17800B02F2C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0F2848382CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F2848392CDBE17800B02F2C /* Debug */,
-				0F28483A2CDBE17800B02F2C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0F28483B2CDBE17800B02F2C /* Build configuration list for PBXNativeTarget "aasazonova_1PW3UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F28483C2CDBE17800B02F2C /* Debug */,
-				0F28483D2CDBE17800B02F2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
