@@ -108,7 +108,6 @@ extension WishStoringViewController: UITableViewDataSource {
             return Constants.numberOfSections
     }
 
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == Constants.noSections ? Constants.oneSection : Array.count
     }

@@ -33,12 +33,11 @@ final class AddWishCell: UITableViewCell {
         static let addButtonWidth: CGFloat = 100
         static let addButtonTitle: String = "Add wish"
         static let addButtonRadius: CGFloat = 10
+        static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
         
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
         static let white: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
         }
     
     // MARK: - Variables

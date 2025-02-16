@@ -22,18 +22,21 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         
         static let discriptionText: String = """
         This app will bring you joy and will fulfill three of your wishes!
-            • The first wish is to change the background color.
+          • The first wish is to change the background color.
+          • The second is to write all your wishes.
+          • The third and the last is to schedule wishes
+          grantins.
         """
         static let discriptionSize: CGFloat = 16
         static let discriptionLeading: CGFloat = 15
         static let discriptionTop: CGFloat = 52
         
-        static let stackRadius: CGFloat = 20
-        static let stackWidth: CGFloat = 350
-        static let stackBottom: CGFloat = 90
+        static let colorStackRadius: CGFloat = 20
+        static let colorStackWidth: CGFloat = 350
+        static let colorStackTop: CGFloat = 90
         
         static let addWishButtonText: String = "Add wishes"
-        static let scheduleWishButtonText: String = "Schedule wish granting"
+        static let scheduleWishButtonText: String = "Schedule wishes granting"
         
         static let buttonHeight: CGFloat = 50
         static let buttonWidth: CGFloat = 350
@@ -51,7 +54,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         static let numberLines: Int = 0
         
         static let actionStackSpacing: CGFloat = 10
-        static let actionStackTop: CGFloat = 40
+        static let actionStackTop: CGFloat = 90
     }
     
     // MARK: - Variables
@@ -67,7 +70,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     private var greenLevel = Constants.colorIntensity
     private var sliderStack = UIStackView()
     private var actionStack = UIStackView()
-    private let vc = WishCalendarModuleBuilder.build()
+    private let calendarViewController = WishCalendarModuleBuilder.build()
     
     var presenter: WishMakerPresenterProtocol?
     
@@ -118,7 +121,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     private func configureSlidersStack() {
         sliderStack.translatesAutoresizingMaskIntoConstraints = false
         sliderStack.axis = .vertical
-        sliderStack.layer.cornerRadius = Constants.stackRadius
+        sliderStack.layer.cornerRadius = Constants.colorStackRadius
         sliderStack.clipsToBounds = true
         
         view.addSubview(sliderStack)
@@ -132,8 +135,8 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         }
 
         sliderStack.pinCenterX(to: view)
-        sliderStack.setWidth(Constants.stackWidth)
-        sliderStack.pinTop(to: discriptionView.bottomAnchor, Constants.stackBottom)
+        sliderStack.setWidth(Constants.colorStackWidth)
+        sliderStack.pinTop(to: discriptionView.bottomAnchor, Constants.colorStackTop)
         
         sliderRed.valueChanged = { [weak self] value in
             self!.redLevel = Double(value)
@@ -197,7 +200,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     
     @objc
     private func scheduleWishButtonPressed() {
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(calendarViewController, animated: true)
     }
     
 }

@@ -60,7 +60,8 @@ final class WishEventCell: UICollectionViewCell {
         addSubview(wrapView)
         wrapView.addSubview(titleBack)
         
-        wrapView.pin(to: self, Constants.offset)
+        wrapView.pinVertical(to: self, 3)
+        wrapView.pinHorizontal(to: self, 10)
         titleBack.setHeight(Constants.titleBackHeight)
         titleBack.pinTop(to: wrapView.topAnchor, Constants.titleBackTop)
         titleBack.pinCenterX(to: wrapView)
@@ -91,10 +92,10 @@ final class WishEventCell: UICollectionViewCell {
     }
     
     // MARK: - Cell Configuration
-    func configure(with event: CalendarEventModel) {
+    func configure(with event: EventEntity) {
         titleLabel.text = event.title
         descriptionLabel.text = event.note
-        startDateLabel.text = "Start Date: \(event.startDate)"
-        endDateLabel.text = "End Date: \(event.endDate)"
+        startDateLabel.text = "Start Date: "
+        endDateLabel.text = "End Date: "
     }
 }

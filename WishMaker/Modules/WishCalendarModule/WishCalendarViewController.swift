@@ -21,6 +21,7 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         static let collectionTop: CGFloat = 20
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let tableOffset: CGFloat = 10
     }
     
     private let collectionView: UICollectionView = UICollectionView(
@@ -30,12 +31,19 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     
     // MARK: - Variables
     var presenter: WishCalendarPresenter?
+    private var events: [EventEntity] = []
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchEvents()
+    }
+
     
     // MARK: - Private funcs
     private func configureUI() {
@@ -44,6 +52,7 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         loadCells()
         configureCollection()
         configureAddWishButton()
+        
     }
     
     private func loadCells() {
@@ -59,13 +68,13 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = Constants.contentInset
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
         view.addSubview(collectionView)
         
-        collectionView.pinCenterX(to: view)
-        collectionView.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor)
-        collectionView.pinTop(to: view.safeAreaLayoutGuide.topAnchor)
+        collectionView.pin(to: view, Constants.tableOffset)
+        collectionView.register(WishEventCell.self, forCellWithReuseIdentifier: WishEventCell.reuseIdentifier)
     }
     
     private func configureAddWishButton() {
@@ -77,10 +86,44 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         addEventButton.tintColor = Constants.darkBlue
         navigationItem.rightBarButtonItem = addEventButton
     }
+    
+    private func fetchEvents() {
+        events = CoreDataStack.shared.fetchEvents()
+        collectionView.reloadData()
+    }
 
     
     @objc 
     private func addEventButtonTapped() {
-        present(WishEventCreationModuleBuilder.build(), animated: true)
+        let wishEventCreationVC = WishEventCreationModuleBuilder.build()
+        
+        wishEventCreationVC.onEventAdded = { [weak self] in
+            self?.fetchEvents()
+        }
+        
+        present(wishEventCreationVC, animated: true)
     }
+}
+
+extension WishCalendarViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishEventCell.reuseIdentifier, for: indexPath) as? WishEventCell else {
+            return UICollectionViewCell()
+        }
+        let event = events[indexPath.item]
+        cell.configure(with: event)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width - 20
+        return CGSize(width: width, height: 100)
+    }
+    
+    
 }

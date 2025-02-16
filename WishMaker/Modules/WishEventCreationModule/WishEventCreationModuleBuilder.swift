@@ -10,7 +10,8 @@ import Foundation
 final class WishEventCreationModuleBuilder {
     static func build() -> WishEventCreationViewController {
         let viewController = WishEventCreationViewController()
-        let presenter = WishEventCreationPresenter()
+        let eventManager = CalendarEventManager()
+        let presenter = WishEventCreationPresenter(eventManager: eventManager)
         let interactor = WishEventCreationInteractor()
         
         viewController.presenter = presenter

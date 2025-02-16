@@ -59,7 +59,6 @@ final class WrittenWishCell: UITableViewCell {
         
         contentView.pinVertical(to: self, Constants.wrapOffsetV)
         contentView.pinHorizontal(to: self, Constants.wrapOffsetH)
-        contentView.setHeight(40)
     }
     
     private func configureLabel() {
