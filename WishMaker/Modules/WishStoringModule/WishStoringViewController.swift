@@ -12,9 +12,6 @@ final class WishStoringViewController: UIViewController {
     
     // MARK: - Constants
     enum Constants {
-        static let backButtonTop: CGFloat = 20
-        static let backButtonLeft: CGFloat = 20
-        
         static let tableCornerRadius: CGFloat = 10
         static let tableOffset: CGFloat = 10
         static let numberOfSections: Int = 2
@@ -30,6 +27,8 @@ final class WishStoringViewController: UIViewController {
             systemName: "chevron.backward",
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
         )
+        static let backButtonTop: CGFloat = 20
+        static let backButtonLeft: CGFloat = 20
     }
     
     // MARK: - Variables

@@ -58,6 +58,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         static let creationRuleTop: CGFloat = 15
         
         static let dateFormat: String = "dd.MM.yyyy"
+        static let emptyString: String = ""
     }
     
     
@@ -194,7 +195,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Constants.dateFormat
         if let firstDate = dateFormatter.date(from: start), let secondDate = dateFormatter.date(from: end) {
-            return firstDate < secondDate
+            return firstDate <= secondDate
         } else {
             return false
         }
@@ -239,10 +240,9 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         let isCreated = presenter?.createEvent(title: title, note: note, startDate: dateStartPicker.date, endDate: dateEndPicker.date) ?? false
         
         if isCreated {
-            titleTextField.text = ""
-            noteTextField.text = ""
-            dateStartTextField.text = ""
-            dateEndTextField.text = ""
+            for field in [titleTextField, noteTextField, dateStartTextField, dateEndTextField] {
+                field.text = Constants.emptyString
+            }
             onEventAdded?()
         }
     }

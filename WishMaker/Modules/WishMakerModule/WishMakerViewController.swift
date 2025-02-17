@@ -22,18 +22,19 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         
         static let discriptionText: String = """
         This app will bring you joy and will fulfill three of your wishes!
-          • The first wish is to change the background color.
+          • The first wish is to change the background
+            color.
           • The second is to write all your wishes.
           • The third and the last is to schedule wishes
           grantins.
         """
         static let discriptionSize: CGFloat = 16
-        static let discriptionLeading: CGFloat = 15
+        static let discriptionLeading: CGFloat = 30
         static let discriptionTop: CGFloat = 52
         
         static let colorStackRadius: CGFloat = 20
         static let colorStackWidth: CGFloat = 350
-        static let colorStackTop: CGFloat = 90
+        static let colorStackTop: CGFloat = 105
         
         static let addWishButtonText: String = "Add wishes"
         static let scheduleWishButtonText: String = "Schedule wishes granting"
@@ -54,7 +55,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         static let numberLines: Int = 0
         
         static let actionStackSpacing: CGFloat = 10
-        static let actionStackTop: CGFloat = 90
+        static let actionStackTop: CGFloat = 105
     }
     
     // MARK: - Variables
