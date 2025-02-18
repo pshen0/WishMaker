@@ -16,9 +16,9 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 для перехода к WishStoring, кнопку "Schedule wishes granting" для перехода к WishCalendar.
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="Resources/AppDiscriptionImages/Sliders1.PNG" width="200">
-  <img src="Resources/AppDiscriptionImages/Sliders2.PNG" width="200">
-  <img src="Resources/AppDiscriptionImages/Sliders3.gif" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Sliders1.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Sliders2.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Sliders3.gif" width="200">
 </div>
 
 
@@ -26,14 +26,14 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 Пользователь может добавлять и удалять записи, осуществляется сортировка записей - новые записи отображаются сверху.
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="Resources/AppDiscriptionImages/Wish1.PNG" width="200">
-  <img src="Resources/AppDiscriptionImages/Wish2.gif" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Wish1.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Wish2.gif" width="200">
 </div>
 
 Экран **WishCalendar** содержит коллекцию пользовательских событий. События при добавлении сортируются по дате начала от 
 старых к новым сверху вниз. Также экран содержит кнопку "+" для перехода к экрану WishEventCreation.
 
-<img src="Resources/AppDiscriptionImages/Event4.PNG" width="200">
+<img src="WishMaker/Resources/AppDiscriptionImages/Event4.PNG" width="200">
 
 
 Экран **WishEventCreation** содержит текстовые поля и кнопку "Add event" для создания и добавления новых
@@ -41,9 +41,9 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 дата окончания события не раньше даты начала. 
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="Resources/AppDiscriptionImages/Event1.PNG" width="200">
-  <img src="Resources/AppDiscriptionImages/Event2.PNG" width="200">
-  <img src="Resources/AppDiscriptionImages/Event3.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Event1.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Event2.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Event3.PNG" width="200">
 </div>
 
 Установка и использование проекта
