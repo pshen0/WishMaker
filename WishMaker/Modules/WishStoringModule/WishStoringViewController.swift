@@ -9,7 +9,7 @@ import UIKit
 
 
 final class WishStoringViewController: UIViewController {
-    
+
     // MARK: - Constants
     enum Constants {
         static let tableCornerRadius: CGFloat = 10
@@ -25,7 +25,7 @@ final class WishStoringViewController: UIViewController {
         
         static let backImage: UIImage? = UIImage(
             systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
         )
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
@@ -34,7 +34,7 @@ final class WishStoringViewController: UIViewController {
     // MARK: - Variables
     private let backButton: UIButton = UIButton()
     private let defaults = UserDefaults.standard
-    var Array: [String] = []
+    var wishes: [WishEntity] = []
     var table: UITableView = UITableView(frame: .zero)
     
     override func viewDidLoad() {
@@ -77,20 +77,19 @@ final class WishStoringViewController: UIViewController {
     }
     
     private func loadWishes() {
-        if let savedWishes = defaults.array(forKey: Constants.wishesKey) as? [String] {
-            Array = savedWishes
-        }
+        wishes = CoreDataWishStack.shared.fetchWishes()
+        table.reloadData()
     }
 
-    private func saveWishes() {
-        defaults.set(Array, forKey: Constants.wishesKey)
+    private func saveWishes(_ wishText: String) {
+        CoreDataWishStack.shared.addWish(wishText)
+        loadWishes()
     }
     
     private func deleteWish(at indexPath: IndexPath) {
-        Array.remove(at: indexPath.row)
-        table.deleteRows(at: [indexPath], with: .automatic)
-        saveWishes()
-        table.reloadData()
+        let wishToDelete = wishes[indexPath.row]
+        CoreDataWishStack.shared.deleteWish(wishToDelete)
+        loadWishes()
     }
     
     // MARK: - Actions
@@ -102,27 +101,24 @@ final class WishStoringViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 extension WishStoringViewController: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
             return Constants.numberOfSections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == Constants.noSections ? Constants.oneSection : Array.count
+        return section == Constants.noSections ? Constants.oneSection : wishes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddWishCell.reuseId, for: indexPath) as! AddWishCell
             cell.addWish = { [weak self] newWish in
-                self?.Array.append(newWish)
-                self?.saveWishes()
-                self?.table.reloadData()
+                self?.saveWishes(newWish)
             }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.reuseId, for: indexPath) as! WrittenWishCell
-            cell.configure(with: Array[indexPath.row])
+            cell.configure(with: wishes[indexPath.row].text ?? "")
 
             cell.deleteAction = { [weak self] in
                 self?.deleteWish(at: indexPath)
@@ -132,3 +128,4 @@ extension WishStoringViewController: UITableViewDataSource {
         }
     }
 }
+

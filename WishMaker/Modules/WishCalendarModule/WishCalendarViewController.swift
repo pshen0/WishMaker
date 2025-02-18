@@ -25,14 +25,14 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         
         static let backImage: UIImage? = UIImage(
             systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
         )
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
         
         static let addImage: UIImage? = UIImage(
             systemName: "plus",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
         )
         static let addButtonTop: CGFloat = 20
         static let addButtonRight: CGFloat = 20
@@ -64,7 +64,6 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     
     // MARK: - Private funcs
     private func configureUI() {
-        navigationController?.navigationBar.tintColor = Constants.darkBlue
         view.backgroundColor = Constants.lightBlue
         loadCells()
         configureBackButton()
@@ -121,8 +120,23 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     }
     
     private func fetchEvents() {
-        events = CoreDataStack.shared.fetchEvents()
+        events = CoreDataEventStack.shared.fetchEvents()
         collectionView.reloadData()
+    }
+    
+    private func deleteEvent(at indexPath: IndexPath) {
+        let eventToDelete = events[indexPath.item]
+        
+        // Сначала удаляем из CoreData
+        CoreDataEventStack.shared.deleteEvent(eventToDelete)
+        
+        // Затем удаляем из массива
+        events.remove(at: indexPath.item)
+        
+        // Теперь обновляем коллекцию
+        collectionView.performBatchUpdates({
+            collectionView.deleteItems(at: [indexPath])
+        }, completion: nil)
     }
 
     
@@ -155,6 +169,12 @@ extension WishCalendarViewController: UICollectionViewDataSource, UICollectionVi
         }
         let event = events[indexPath.item]
         cell.configure(with: event)
+        
+        cell.deleteCell = { [weak self, weak collectionView] in
+            guard let index = collectionView?.indexPath(for: cell) else { return }
+            self?.deleteEvent(at: index)
+        }
+        
         return cell
     }
     
@@ -162,6 +182,5 @@ extension WishCalendarViewController: UICollectionViewDataSource, UICollectionVi
         let width = collectionView.frame.width - 20
         return CGSize(width: width, height: 100)
     }
-    
     
 }

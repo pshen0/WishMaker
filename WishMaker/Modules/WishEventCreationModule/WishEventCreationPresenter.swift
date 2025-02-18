@@ -33,14 +33,14 @@ final class WishEventCreationPresenter: WishEventCreationPresenterProtocol {
     }
     
     func saveEventToCoreData(eventModel: CalendarEventModel) {
-        let context = CoreDataStack.shared.context
+        let context = CoreDataEventStack.shared.context
         context.performAndWait {
             let eventEntity = EventEntity(context: context)
             
             eventEntity.title = eventModel.title
             eventEntity.startDate = eventModel.startDate
             eventEntity.endDate = eventModel.endDate
-            eventEntity.note = eventModel.note
+            eventEntity.note = eventModel.note ?? ""
             
             do {
                 try context.save()

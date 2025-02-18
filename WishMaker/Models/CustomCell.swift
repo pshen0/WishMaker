@@ -79,7 +79,6 @@ final class WrittenWishCell: UITableViewCell {
         
         contentView.addSubview(deleteButton)
         
-        
         deleteButton.pinCenterY(to: contentView)
         deleteButton.pinRight(to: contentView.trailingAnchor, 10)
         

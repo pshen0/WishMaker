@@ -191,6 +191,14 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     // MARK: - Func
     func updateBackgroundColor(red: CGFloat, green: CGFloat, blue: CGFloat) {
         view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: Constants.colorSaturation)
+        print(Double(red + green + blue))
+        if Double(red + green + blue) > 1.833 {
+            titleView.textColor = .black
+            discriptionView.textColor = .black
+        } else {
+            titleView.textColor = .white
+            discriptionView.textColor = .white
+        }
     }
     
     // MARK: - Actions

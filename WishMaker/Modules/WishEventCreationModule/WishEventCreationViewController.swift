@@ -21,7 +21,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         
         static let backImage: UIImage? = UIImage(
             systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
         )
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
@@ -51,8 +51,8 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
         
         static let creationRuleText: String = """
-        All fields must be filled in and the end date must be
-        no earlier than the start date.
+        All required fields must be filled in and the end date
+        must be no earlier than the start date.
         """
         static let creationRuleFont: UIFont = .systemFont(ofSize: 13)
         static let creationRuleTop: CGFloat = 15
@@ -226,7 +226,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
     
     @objc private func addEventTapped() {
         guard let title = titleTextField.text, !title.isEmpty,
-              let note = noteTextField.text, !note.isEmpty,
+              let note = noteTextField.text,
               let startText = dateStartTextField.text, let endText = dateEndTextField.text,
               checkDates(start: startText, end: endText)
         else {
