@@ -98,6 +98,7 @@
 		0F2848022CDBE17600B02F2C = {
 			isa = PBXGroup;
 			children = (
+				0F6AFA672D64A5B7007B8454 /* README.md */,
 				0F28480D2CDBE17600B02F2C /* WishMaker */,
 				0F28480C2CDBE17600B02F2C /* Products */,
 			);
@@ -120,7 +121,6 @@
 				0FEA38672D5D285200D0DE7E /* Models */,
 				0F28483E2CDBE20B00B02F2C /* Modules */,
 				0FEA386E2D5D300400D0DE7E /* Resources */,
-				0F6AFA672D64A5B7007B8454 /* README.md */,
 			);
 			path = WishMaker;
 			sourceTree = "<group>";
