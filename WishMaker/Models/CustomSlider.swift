@@ -11,13 +11,15 @@ final class CustomSlider: UIView {
     
     // MARK: - Constants
     enum Constants {
+        // Common
+        static let initError: String = "init(coder:) has not been implemented"
+        static let black: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        
         static let titleTop: CGFloat = 10
         static let titleLeading: CGFloat = 20
         
         static let sliderBottom: CGFloat = 10
         static let sliderLeading: CGFloat = 20
-        
-        static let black: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
     }
     
     // MARK: - Variables
@@ -36,7 +38,7 @@ final class CustomSlider: UIView {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     override init(frame: CGRect) {

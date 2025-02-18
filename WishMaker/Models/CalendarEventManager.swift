@@ -19,6 +19,12 @@ struct CalendarEventModel {
 }
 
 final class CalendarEventManager: CalendarEventManagerProtocol {
+    
+    enum Constants {
+        // Common
+        static let saveError: String = "Failed to save event with error"
+    }
+    
     private let eventStore : EKEventStore = EKEventStore()
     
     func create(eventModel: CalendarEventModel) -> Bool {
@@ -34,8 +40,7 @@ final class CalendarEventManager: CalendarEventManagerProtocol {
     }
     
     func create(eventModel: CalendarEventModel, completion: ((Bool) -> Void)?) {
-        let createEvent: EKEventStoreRequestAccessCompletionHandler = { [weak self] (granted,
-                                                                                     error) in
+        let createEvent: EKEventStoreRequestAccessCompletionHandler = { [weak self] (granted,error) in
             guard granted, error == nil, let self else {
                 completion?(false)
                 return
@@ -46,10 +51,11 @@ final class CalendarEventManager: CalendarEventManagerProtocol {
             event.endDate = eventModel.endDate
             event.notes = eventModel.note
             event.calendar = self.eventStore.defaultCalendarForNewEvents
+            
             do {
                 try self.eventStore.save(event, span: .thisEvent)
-            } catch let error as NSError {
-                print("failed to save event with error : \(error)")
+            } catch _ as NSError {
+                print(Constants.saveError)
                 completion?(false)
             }
             completion?(true)

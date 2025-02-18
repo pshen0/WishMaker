@@ -12,20 +12,39 @@ import UIKit
 final class WishEventCell: UICollectionViewCell {
     
     enum Constants {
-        static let offset: Double = 10.0
-        static let cornerRadius: CGFloat = 10
-        static let backgroundColor: UIColor = .white
-        static let titleTop: CGFloat = 10
-        static let titleFont: UIFont = .boldSystemFont(ofSize: 15)
-        static let titleLeading: CGFloat = 40
+        // Common
+        static let initError: String = "init(coder:) has not been implemented"
+        static let formatterString: String = "dd.MM.yyyy"
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
+        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = .white
+        static let smallBoldFont: UIFont = .boldSystemFont(ofSize: 12)
+        static let smallFont: UIFont = .systemFont(ofSize: 14)
+
+        static let wrapCornerRadius: CGFloat = 10
+        static let wrapVetical: CGFloat = 3
+        static let wrapHorizontal: CGFloat = 10
         static let titleBackHeight: CGFloat = 23
         static let titleBackTop: CGFloat = 10
         static let titleBackWidth: CGFloat = 340
         static let titleBackRadius: CGFloat = 5
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
-        static let smallBoldFont: UIFont = .boldSystemFont(ofSize: 12)
-        static let smallFont: UIFont = .systemFont(ofSize: 14)
+        
+        static let titleTop: CGFloat = 10
+        static let titleFont: UIFont = .boldSystemFont(ofSize: 15)
+        static let titleLeading: CGFloat = 10
+        
+        static let datesStackSpacing: CGFloat = 10
+        static let datesStackLeft: CGFloat = 10
+        static let calendarTop: CGFloat = 15
+        static let calendarLeft: CGFloat = 15
+        
+        static let discriptionLines: Int = 0
+        static let noteLeft: CGFloat = 20
+        static let noteWidth: CGFloat = 150
+        static let discriptinLeft: CGFloat = 10
+        
+        static let deleteButtonRight: CGFloat = 10
+        
         static let calendarImage: UIImage? = UIImage(
             systemName: "calendar.badge.clock",
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
@@ -42,15 +61,15 @@ final class WishEventCell: UICollectionViewCell {
     
     static let reuseIdentifier: String = "WishEventCell"
     private let wrapView: UIView = UIView()
-    private let titleLabel: UILabel = UILabel()
-    private let discriptionLabel: UILabel = UILabel()
-    private let startDateLabel: UILabel = UILabel()
-    private let endDateLabel: UILabel = UILabel()
     private let titleBack: UIView = UIView()
     private let calendarView: UIImageView = UIImageView(image: Constants.calendarImage)
     private let noteView: UIImageView = UIImageView(image: Constants.noteImage)
     private let datesStack: UIStackView = UIStackView()
     private let deleteButton: UIButton = UIButton()
+    private let titleLabel: UILabel = UILabel()
+    private let discriptionLabel: UILabel = UILabel()
+    private let startDateLabel: UILabel = UILabel()
+    private let endDateLabel: UILabel = UILabel()
     
     var deleteCell: (() -> Void)?
     
@@ -66,20 +85,20 @@ final class WishEventCell: UICollectionViewCell {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     private func configureWrap() {
-        wrapView.layer.cornerRadius = Constants.cornerRadius
-        wrapView.backgroundColor = Constants.backgroundColor
+        wrapView.layer.cornerRadius = Constants.wrapCornerRadius
+        wrapView.backgroundColor = Constants.white
         titleBack.backgroundColor = Constants.darkBlue
         titleBack.layer.cornerRadius = Constants.titleBackRadius
         
         addSubview(wrapView)
         wrapView.addSubview(titleBack)
         
-        wrapView.pinVertical(to: self, 3)
-        wrapView.pinHorizontal(to: self, 10)
+        wrapView.pinVertical(to: self, Constants.wrapVetical)
+        wrapView.pinHorizontal(to: self, Constants.wrapHorizontal)
         titleBack.setHeight(Constants.titleBackHeight)
         titleBack.pinTop(to: wrapView.topAnchor, Constants.titleBackTop)
         titleBack.pinCenterX(to: wrapView)
@@ -93,13 +112,13 @@ final class WishEventCell: UICollectionViewCell {
         
         titleLabel.textColor = .white
         titleLabel.pinCenterY(to: titleBack)
-        titleLabel.pinLeft(to: titleBack.leadingAnchor, 10)
+        titleLabel.pinLeft(to: titleBack.leadingAnchor, Constants.titleLeading)
         titleLabel.font = Constants.titleFont
     }
     
     private func configureDatesView() {
         datesStack.axis = .vertical
-        datesStack.spacing = 10
+        datesStack.spacing = Constants.datesStackSpacing
         let datesArray: Array<UILabel> = [startDateLabel, endDateLabel]
         
         
@@ -113,14 +132,14 @@ final class WishEventCell: UICollectionViewCell {
         wrapView.addSubview(calendarView)
         wrapView.addSubview(datesStack)
         
-        calendarView.pinTop(to: titleBack.bottomAnchor, 15)
-        calendarView.pinLeft(to: wrapView.leadingAnchor, 15)
+        calendarView.pinTop(to: titleBack.bottomAnchor, Constants.calendarTop)
+        calendarView.pinLeft(to: wrapView.leadingAnchor, Constants.calendarLeft)
         datesStack.pinCenterY(to: calendarView)
-        datesStack.pinLeft(to: calendarView.trailingAnchor, 10)
+        datesStack.pinLeft(to: calendarView.trailingAnchor, Constants.datesStackLeft)
     }
     
     private func configureDescriptionView() {
-        discriptionLabel.numberOfLines = 0
+        discriptionLabel.numberOfLines = Constants.discriptionLines
         discriptionLabel.lineBreakMode = .byWordWrapping
         discriptionLabel.font = Constants.smallFont
         discriptionLabel.textColor = Constants.darkBlue
@@ -130,9 +149,9 @@ final class WishEventCell: UICollectionViewCell {
         wrapView.addSubview(discriptionLabel)
         
         noteView.pinCenterY(to: calendarView)
-        noteView.pinLeft(to: datesStack.trailingAnchor, 20)
-        discriptionLabel.setWidth(150)
-        discriptionLabel.pinLeft(to: noteView.trailingAnchor, 10)
+        noteView.pinLeft(to: datesStack.trailingAnchor, Constants.noteLeft)
+        discriptionLabel.setWidth(Constants.noteWidth)
+        discriptionLabel.pinLeft(to: noteView.trailingAnchor, Constants.discriptinLeft)
         discriptionLabel.pinCenterY(to: noteView)
     }
     
@@ -143,7 +162,7 @@ final class WishEventCell: UICollectionViewCell {
         wrapView.addSubview(deleteButton)
         
         deleteButton.pinCenterY(to: calendarView)
-        deleteButton.pinRight(to: wrapView.trailingAnchor, 10)
+        deleteButton.pinRight(to: wrapView.trailingAnchor, Constants.deleteButtonRight)
         
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
@@ -151,7 +170,7 @@ final class WishEventCell: UICollectionViewCell {
     // MARK: - Cell Configuration
     func configure(with event: EventEntity) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.dateFormat = Constants.formatterString
         
         titleLabel.text = event.title
         discriptionLabel.text = event.note

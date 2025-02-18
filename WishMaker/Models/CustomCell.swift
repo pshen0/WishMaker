@@ -8,22 +8,27 @@
 import UIKit
 
 final class WrittenWishCell: UITableViewCell {
-    static let reuseId: String = "WrittenWishCell"
     
     // MARK: - Constants
     private enum Constants {
+        // Common
+        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
+        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let initError: String = "init(coder:) has not been implemented"
+        
         static let wrapColor: UIColor = .white
         static let wrapRadius: CGFloat = 16
         static let wrapOffsetV: CGFloat = 3
         static let wrapOffsetH: CGFloat = 10
+        
         static let wishLabelOffset: CGFloat = 8
+        static let wishLabelLines: Int = 0
         
         static let trashImage: UIImage? = UIImage(systemName: "trash")
-        
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let deleteButtonRights: CGFloat = 10
     }
     
+    static let reuseId: String = "WrittenWishCell"
     private let wishLabel: UILabel = UILabel()
     private let deleteButton: UIButton = UIButton()
     
@@ -38,7 +43,7 @@ final class WrittenWishCell: UITableViewCell {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     // MARK: - Funcs
@@ -63,7 +68,7 @@ final class WrittenWishCell: UITableViewCell {
     
     private func configureLabel() {
         wishLabel.textColor = Constants.darkBlue
-        wishLabel.numberOfLines = 0
+        wishLabel.numberOfLines = Constants.wishLabelLines
         wishLabel.lineBreakMode = .byWordWrapping
         
         contentView.addSubview(wishLabel)
@@ -80,7 +85,7 @@ final class WrittenWishCell: UITableViewCell {
         contentView.addSubview(deleteButton)
         
         deleteButton.pinCenterY(to: contentView)
-        deleteButton.pinRight(to: contentView.trailingAnchor, 10)
+        deleteButton.pinRight(to: contentView.trailingAnchor, Constants.deleteButtonRights)
         
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }

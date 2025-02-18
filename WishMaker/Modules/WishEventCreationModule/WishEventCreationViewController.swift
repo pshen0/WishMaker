@@ -16,13 +16,12 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
     
     // MARK: - Constants
     enum Constants {
+        // Common
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let formatterString: String = "dd.MM.yyyy"
+        static let emptyString: String = ""
         
-        static let backImage: UIImage? = UIImage(
-            systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
-        )
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
         
@@ -33,7 +32,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         static let fieldRadius: CGFloat = 5
         static let fieldsStackSpacing: CGFloat = 30
         static let fieldsPadding: CGFloat = 10
-        static let fieldsLabels = ["Event", "Discription", "Start of the event", "End of event"]
+        static let fieldsLabels = ["Event", "Discription", "Start of the event", "End of the event"]
         static let fieldHeight: CGFloat = 40
         static let fieldsStackTop: CGFloat = 40
         static let fieldWidth: CGFloat = 350
@@ -56,9 +55,12 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         """
         static let creationRuleFont: UIFont = .systemFont(ofSize: 13)
         static let creationRuleTop: CGFloat = 15
+        static let creationRulesLines: Int = 0
         
-        static let dateFormat: String = "dd.MM.yyyy"
-        static let emptyString: String = ""
+        static let backImage: UIImage? = UIImage(
+            systemName: "chevron.backward",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
+        )
     }
     
     
@@ -125,6 +127,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         dateStartPicker.datePickerMode = .date
         dateStartPicker.preferredDatePickerStyle = .wheels
         dateStartTextField.inputView = dateStartPicker
+        
         dateStartPicker.addTarget(self, action: #selector(dateStartChanged(_:)), for: .valueChanged)
     }
     
@@ -132,36 +135,32 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         dateEndPicker.datePickerMode = .date
         dateEndPicker.preferredDatePickerStyle = .wheels
         dateEndTextField.inputView = dateEndPicker
+        
         dateEndPicker.addTarget(self, action: #selector(dateEndChanged(_:)), for: .valueChanged)
     }
     
     private func configureStack() {
-        fieldsStack.translatesAutoresizingMaskIntoConstraints = false
         fieldsStack.axis = .vertical
         fieldsStack.clipsToBounds = true
         fieldsStack.spacing = Constants.fieldsStackSpacing
         
         view.addSubview(fieldsStack)
         
-        var i = 0
-        for field in [titleTextField, noteTextField, dateStartTextField, dateEndTextField] {
+        for (field, label) in zip([titleTextField, noteTextField, dateStartTextField, dateEndTextField], Constants.fieldsLabels) {
             field.backgroundColor = .white
             field.textColor = Constants.darkBlue
             field.layer.cornerRadius = Constants.fieldRadius
             field.setLeftPaddingPoints(Constants.fieldsPadding)
-            field.attributedPlaceholder = NSAttributedString(string: Constants.fieldsLabels[i], attributes: Constants.fieldsAttribute)
+            field.attributedPlaceholder = NSAttributedString(string: label, attributes: Constants.fieldsAttribute)
             
             fieldsStack.addArrangedSubview(field)
             
             field.setHeight(Constants.fieldHeight)
             field.setWidth(Constants.fieldWidth)
-            
-            i += 1
         }
         
         fieldsStack.pinCenterX(to: view)
         fieldsStack.pinTop(to: creationTitle.bottomAnchor, Constants.fieldsStackTop)
-        
     }
     
     private func configureAddEventButton() {
@@ -170,8 +169,9 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         addEventButton.setTitleColor(.white, for: .normal)
         addEventButton.titleLabel?.font = Constants.buttonFont
         addEventButton.layer.cornerRadius = Constants.addEventButtonRadius
+        
         creationRule.text = Constants.creationRuleText
-        creationRule.numberOfLines = 0
+        creationRule.numberOfLines = Constants.creationRulesLines
         creationRule.lineBreakMode = .byWordWrapping
         creationRule.textColor = Constants.darkBlue
         creationRule.font = Constants.creationRuleFont
@@ -193,7 +193,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
     
     private func checkDates(start: String, end: String) -> Bool {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.dateFormat
+        dateFormatter.dateFormat = Constants.formatterString
         if let firstDate = dateFormatter.date(from: start), let secondDate = dateFormatter.date(from: end) {
             return firstDate <= secondDate
         } else {
@@ -208,13 +208,13 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
     
     @objc private func dateStartChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = Constants.dateFormat
+        formatter.dateFormat = Constants.formatterString
         dateStartTextField.text = formatter.string(from: sender.date)
     }
     
     @objc private func dateEndChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = Constants.dateFormat
+        formatter.dateFormat = Constants.formatterString
         dateEndTextField.text = formatter.string(from: sender.date)
     }
     

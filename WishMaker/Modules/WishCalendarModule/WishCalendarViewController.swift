@@ -17,25 +17,34 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     
     // MARK: - Constants
     enum Constants {
-        static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        static let collectionTop: CGFloat = 40
+        // Common
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        static let collectionSpacing: CGFloat = 0
+        static let collectionTop: CGFloat = 40
+        static let collectionBottom: CGFloat = 20
+        static let collectionHorizontal: CGFloat = 10
+        static let collectionCellOffset: CGFloat = 20
+        static let collectionCellHeight: CGFloat = 100
+
         static let tableOffset: CGFloat = 10
         
-        static let backImage: UIImage? = UIImage(
-            systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
-        )
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
+        
+        static let addButtonTop: CGFloat = 20
+        static let addButtonRight: CGFloat = 20
         
         static let addImage: UIImage? = UIImage(
             systemName: "plus",
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
         )
-        static let addButtonTop: CGFloat = 20
-        static let addButtonRight: CGFloat = 20
+        static let backImage: UIImage? = UIImage(
+            systemName: "chevron.backward",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .medium)
+        )
     }
     
     private let addEventButton: UIButton = UIButton()
@@ -73,8 +82,8 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     
     private func loadCells() {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.minimumInteritemSpacing = 0
-            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = Constants.collectionSpacing
+            layout.minimumLineSpacing = Constants.collectionSpacing
             layout.invalidateLayout()
         }
     }
@@ -90,8 +99,8 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         view.addSubview(collectionView)
         
         collectionView.pinTop(to: backButton.topAnchor, Constants.collectionTop)
-        collectionView.pinBottom(to: view.bottomAnchor, 20)
-        collectionView.pinHorizontal(to: view, 10)
+        collectionView.pinBottom(to: view.bottomAnchor, Constants.collectionBottom)
+        collectionView.pinHorizontal(to: view, Constants.collectionHorizontal)
         collectionView.register(WishEventCell.self, forCellWithReuseIdentifier: WishEventCell.reuseIdentifier)
     }
     
@@ -126,19 +135,12 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
     
     private func deleteEvent(at indexPath: IndexPath) {
         let eventToDelete = events[indexPath.item]
-        
-        // Сначала удаляем из CoreData
         CoreDataEventStack.shared.deleteEvent(eventToDelete)
-        
-        // Затем удаляем из массива
         events.remove(at: indexPath.item)
-        
-        // Теперь обновляем коллекцию
         collectionView.performBatchUpdates({
             collectionView.deleteItems(at: [indexPath])
         }, completion: nil)
     }
-
     
     @objc 
     private func addEventButtonTapped() {
@@ -179,8 +181,8 @@ extension WishCalendarViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width - 20
-        return CGSize(width: width, height: 100)
+        let width = collectionView.frame.width - Constants.collectionCellOffset
+        return CGSize(width: width, height: Constants.collectionCellHeight)
     }
     
 }

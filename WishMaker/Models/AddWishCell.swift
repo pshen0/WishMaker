@@ -10,11 +10,16 @@ import UIKit
 
 final class AddWishCell: UITableViewCell {
     
-    
-    static let reuseId: String = "AddWishCell"
-    
     // MARK: - Constants
     enum Constants {
+        // Common constants
+        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
+        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        static let initError: String = "init(coder:) has not been implemented"
+        static let emptyString: String = ""
+        static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
+        
         static let wishTitleText: String = "Enter your wish"
         static let wishTitleSize: CGFloat = 32
         static let wishTitleTop: CGFloat = 60
@@ -22,7 +27,6 @@ final class AddWishCell: UITableViewCell {
         static let wishTextViewRadius: CGFloat = 10
         static let wishTextViewBorderWidth: CGFloat = 1
         static let wishTextViewFontSize: CGFloat = 18
-        
         static let wishTextViewLeading: CGFloat = 16
         static let wishTextViewTrailing: CGFloat = 16
         static let wishTextViewTop: CGFloat = 150
@@ -33,18 +37,15 @@ final class AddWishCell: UITableViewCell {
         static let addButtonWidth: CGFloat = 100
         static let addButtonTitle: String = "Add wish"
         static let addButtonRadius: CGFloat = 10
-        static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
-        
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
-        static let white: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
     
-    // MARK: - Variables
-    var addWish: ((String) -> Void)?
+    static let reuseId: String = "AddWishCell"
     private let wishTitle: UILabel = UILabel()
     private let wishTextView: UITextView = UITextView()
     private let addButton: UIButton = UIButton(type: .system)
+    
+    // MARK: - Variables
+    var addWish: ((String) -> Void)?
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -53,7 +54,7 @@ final class AddWishCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     // MARK: - Private funcs
@@ -120,7 +121,7 @@ final class AddWishCell: UITableViewCell {
         guard let text = wishTextView.text, !text.isEmpty && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         else { return }
         addWish?(text)
-        wishTextView.text = ""
+        wishTextView.text = Constants.emptyString
         wishTextView.resignFirstResponder()
     }
 }

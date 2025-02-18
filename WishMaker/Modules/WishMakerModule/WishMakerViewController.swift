@@ -16,6 +16,15 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     
     // MARK: - Constants
     enum Constants {
+        // Common
+        static let red: String = "Red"
+        static let green: String = "Green"
+        static let blue: String = "Blue"
+        static let colorIntensity: CGFloat = 0.0
+        static let colorSaturation: CGFloat = 1.0
+        static let numberLines: Int = 0
+        static let brightnessLevel: Double = 1.5
+        
         static let titleText: String = "WishMaker"
         static let titleSize: CGFloat = 32
         static let titleTop: CGFloat = 30
@@ -43,35 +52,29 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         static let buttonWidth: CGFloat = 350
         static let buttonRadius: CGFloat = 20
         
-        static let red: String = "Red"
-        static let green: String = "Green"
-        static let blue: String = "Blue"
-        static let colorIntensity: CGFloat = 0.0
-        static let colorSaturation: CGFloat = 1.0
-        
         static let sliderMin: Double = 0
         static let sliderMax: Double = 1
-        
-        static let numberLines: Int = 0
         
         static let actionStackSpacing: CGFloat = 10
         static let actionStackTop: CGFloat = 105
     }
     
     // MARK: - Variables
-    private var titleView = UILabel()
-    private var discriptionView = UILabel()
-    private var sliderRed = CustomSlider()
-    private var sliderBlue = CustomSlider()
-    private var sliderGreen = CustomSlider()
+    private let titleView = UILabel()
+    private let discriptionView = UILabel()
+    private let sliderRed = CustomSlider(title: Constants.red, min: Constants.sliderMin, max: Constants.sliderMax)
+    private let sliderBlue = CustomSlider(title: Constants.blue, min: Constants.sliderMin, max: Constants.sliderMax)
+    private let sliderGreen = CustomSlider(title: Constants.green, min: Constants.sliderMin, max: Constants.sliderMax)
     private let addWishButton: UIButton = UIButton(type: .system)
     private let scheduleWishButton: UIButton = UIButton(type: .system)
+    private let sliderStack = UIStackView()
+    private let actionStack = UIStackView()
+    private let calendarViewController = WishCalendarModuleBuilder.build()
+    
     private var redLevel = Constants.colorIntensity
     private var blueLevel = Constants.colorIntensity
     private var greenLevel = Constants.colorIntensity
-    private var sliderStack = UIStackView()
-    private var actionStack = UIStackView()
-    private let calendarViewController = WishCalendarModuleBuilder.build()
+    
     
     var presenter: WishMakerPresenterProtocol?
     
@@ -105,7 +108,6 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     }
     
     private func configureDiscription() {
-        discriptionView.translatesAutoresizingMaskIntoConstraints = false
         discriptionView.text = Constants.discriptionText
         discriptionView.numberOfLines = Constants.numberLines
         discriptionView.lineBreakMode = .byWordWrapping
@@ -120,16 +122,11 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     }
     
     private func configureSlidersStack() {
-        sliderStack.translatesAutoresizingMaskIntoConstraints = false
         sliderStack.axis = .vertical
         sliderStack.layer.cornerRadius = Constants.colorStackRadius
         sliderStack.clipsToBounds = true
         
         view.addSubview(sliderStack)
-        
-        sliderRed = CustomSlider(title: Constants.red, min: Constants.sliderMin, max: Constants.sliderMax)
-        sliderBlue = CustomSlider(title: Constants.blue, min: Constants.sliderMin, max: Constants.sliderMax)
-        sliderGreen = CustomSlider(title: Constants.green, min: Constants.sliderMin, max: Constants.sliderMax)
         
         for slider in [sliderRed, sliderBlue, sliderGreen] {
             sliderStack.addArrangedSubview(slider)
@@ -172,7 +169,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         
         configureAddWishButton()
         configureScheduleWishButton()
-        
+
         actionStack.pinTop(to: sliderStack.bottomAnchor, Constants.actionStackTop)
         actionStack.pinCenterX(to: view)
     }
@@ -192,7 +189,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     func updateBackgroundColor(red: CGFloat, green: CGFloat, blue: CGFloat) {
         view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: Constants.colorSaturation)
         print(Double(red + green + blue))
-        if Double(red + green + blue) > 1.833 {
+        if Double(red + green + blue) > Constants.brightnessLevel {
             titleView.textColor = .black
             discriptionView.textColor = .black
         } else {
