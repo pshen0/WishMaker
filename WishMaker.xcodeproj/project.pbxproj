@@ -28,6 +28,8 @@
 		0F6AFA762D64AC40007B8454 /* Event2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F6AFA752D64AC40007B8454 /* Event2.PNG */; };
 		0F6AFA782D64AC44007B8454 /* Event3.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F6AFA772D64AC44007B8454 /* Event3.PNG */; };
 		0F6AFA7A2D64AC48007B8454 /* Event4.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 0F6AFA792D64AC48007B8454 /* Event4.PNG */; };
+		0F6AFA7D2D64BAA3007B8454 /* Wish2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0F6AFA7C2D64BAA3007B8454 /* Wish2.gif */; };
+		0F6AFA7F2D64BADB007B8454 /* Sliders3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0F6AFA7E2D64BADB007B8454 /* Sliders3.gif */; };
 		0FEA386B2D5D28F300D0DE7E /* WishStoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2848492CDBF80800B02F2C /* WishStoringViewController.swift */; };
 		0FEA386D2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA386C2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift */; };
 		0FEA38732D5D44D100D0DE7E /* WishCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA38722D5D44D100D0DE7E /* WishCalendarViewController.swift */; };
@@ -63,12 +65,12 @@
 		0F6AFA6A2D64AB75007B8454 /* Sliders1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sliders1.PNG; sourceTree = "<group>"; };
 		0F6AFA6C2D64AB90007B8454 /* Sliders2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sliders2.PNG; sourceTree = "<group>"; };
 		0F6AFA702D64AC2C007B8454 /* Wish1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Wish1.PNG; sourceTree = "<group>"; };
-		0F6AFA722D64AC30007B8454 /* Sliders3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sliders3.mp4; sourceTree = "<group>"; };
 		0F6AFA732D64AC3A007B8454 /* Event1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Event1.PNG; sourceTree = "<group>"; };
 		0F6AFA752D64AC40007B8454 /* Event2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Event2.PNG; sourceTree = "<group>"; };
 		0F6AFA772D64AC44007B8454 /* Event3.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Event3.PNG; sourceTree = "<group>"; };
 		0F6AFA792D64AC48007B8454 /* Event4.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Event4.PNG; sourceTree = "<group>"; };
-		0F6AFA7B2D64AF3E007B8454 /* Wish2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wish2.mp4; sourceTree = "<group>"; };
+		0F6AFA7C2D64BAA3007B8454 /* Wish2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Wish2.gif; sourceTree = "<group>"; };
+		0F6AFA7E2D64BADB007B8454 /* Sliders3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sliders3.gif; sourceTree = "<group>"; };
 		0FEA386C2D5D2B9C00D0DE7E /* WishMakerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMakerModuleBuilder.swift; sourceTree = "<group>"; };
 		0FEA38722D5D44D100D0DE7E /* WishCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarViewController.swift; sourceTree = "<group>"; };
 		0FEA38742D5D498900D0DE7E /* WishCalendarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCalendarInteractor.swift; sourceTree = "<group>"; };
@@ -148,9 +150,9 @@
 			children = (
 				0F6AFA6A2D64AB75007B8454 /* Sliders1.PNG */,
 				0F6AFA6C2D64AB90007B8454 /* Sliders2.PNG */,
-				0F6AFA722D64AC30007B8454 /* Sliders3.mp4 */,
+				0F6AFA7E2D64BADB007B8454 /* Sliders3.gif */,
 				0F6AFA702D64AC2C007B8454 /* Wish1.PNG */,
-				0F6AFA7B2D64AF3E007B8454 /* Wish2.mp4 */,
+				0F6AFA7C2D64BAA3007B8454 /* Wish2.gif */,
 				0F6AFA732D64AC3A007B8454 /* Event1.PNG */,
 				0F6AFA752D64AC40007B8454 /* Event2.PNG */,
 				0F6AFA772D64AC44007B8454 /* Event3.PNG */,
@@ -299,10 +301,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F6AFA742D64AC3A007B8454 /* Event1.PNG in Resources */,
+				0F6AFA7F2D64BADB007B8454 /* Sliders3.gif in Resources */,
 				0F6AFA6D2D64AB90007B8454 /* Sliders2.PNG in Resources */,
 				0F6AFA682D64A5B7007B8454 /* README.md in Resources */,
 				0F6AFA762D64AC40007B8454 /* Event2.PNG in Resources */,
 				0F28481B2CDBE17800B02F2C /* LaunchScreen.storyboard in Resources */,
+				0F6AFA7D2D64BAA3007B8454 /* Wish2.gif in Resources */,
 				0F6AFA712D64AC2C007B8454 /* Wish1.PNG in Resources */,
 				0F6AFA6B2D64AB75007B8454 /* Sliders1.PNG in Resources */,
 				0F6AFA7A2D64AC48007B8454 /* Event4.PNG in Resources */,
