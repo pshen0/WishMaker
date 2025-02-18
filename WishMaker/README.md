@@ -15,31 +15,36 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 Основной экран - **WishMaker** - содержит стек кастомных слайдеров для изменения фона экрана, кнопку "Add wishes"
 для перехода к WishStoring, кнопку "Schedule wishes granting" для перехода к WishEvent.
 
-<img src="Resources/AppDiscriptionImages/Sliders1.PNG" width="500">
-<img src="Resources/AppDiscriptionImages/Sliders2.PNG" width="500">
-<img src="Resources/AppDiscriptionImages/Sliders3.gif" width="500">
+<div style="display: flex; justify-content: space-between;">
+  <img src="Resources/AppDiscriptionImages/Sliders1.PNG" width="200">
+  <img src="Resources/AppDiscriptionImages/Sliders2.PNG" width="200">
+  <img src="Resources/AppDiscriptionImages/Sliders3.gif" width="200">
+</div>
 
 
 Экран **WishStoring** содержит поле для создания записей и коллекцию пользовательских записей.
 Пользователь может добавлять и удалять записи, осуществляется сортировка записей - новые записи отображаются сверху.
 
-<img src="Resources/AppDiscriptionImages/Wish1.PNG" width="500">
-<img src="Resources/AppDiscriptionImages/Wish2.gif" width="500">
-
+<div style="display: flex; justify-content: space-between;">
+  <img src="Resources/AppDiscriptionImages/Wish1.PNG" width="200">
+  <img src="Resources/AppDiscriptionImages/Wish2.gif" width="200">
+</div>
 
 Экран **WishCalendar** содержит коллекцию пользовательских событий. События при добавлении сортируются по дате начала от 
 старых к новым сверху вниз. Также экран содержит кнопку "+" для перехода к экрану WishEventCreation.
 
-<img src="Resources/AppDiscriptionImages/Event4.PNG" width="500">
+<img src="Resources/AppDiscriptionImages/Event4.PNG" width="200">
 
 
 Экран **WishEventCreation** содержит текстовые поля и кнопку "Add event" для создания и добавления новых
 пользовательских событий. При добавлении события осуществляется проверка на то, что название события введено и что 
 дата окончания события не раньше даты начала. 
 
-<img src="Resources/AppDiscriptionImages/Event1.PNG" width="500">
-<img src="Resources/AppDiscriptionImages/Event2.PNG" width="500">
-<img src="Resources/AppDiscriptionImages/Event3.PNG" width="500">
+<div style="display: flex; justify-content: space-between;">
+  <img src="Resources/AppDiscriptionImages/Event1.PNG" width="200">
+  <img src="Resources/AppDiscriptionImages/Event2.PNG" width="200">
+  <img src="Resources/AppDiscriptionImages/Event3.PNG" width="200">
+</div>
 
 Установка и использование проекта
 -
