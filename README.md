@@ -3,7 +3,7 @@ WishMaker
 Описание
 -
 
-WishMaker – мобильное приложение на Swift (UIKit, Xcode) с архитектурой VIP и Core Data для хранения данных.
+WishMaker – мобильное приложение на Swift (UIKit, Xcode) с архитектурой SVIP и Core Data для хранения данных.
 
 * WishMakerViewController – кастомные слайдеры для изменения цвета фона.
 * WishStoringViewController – ввод, сохранение и удаление записей в UICollectionView.
