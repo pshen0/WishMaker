@@ -7,14 +7,8 @@
 
 import UIKit
 
-// MARK: - WishMakerView Protocol
-protocol WishMakerViewProtocol: AnyObject {
-    func updateBackgroundColor(red: CGFloat, green: CGFloat, blue: CGFloat)
-}
-
-final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
+final class WishMakerViewController: UIViewController {
     
-    // MARK: - Constants
     enum Constants {
         // Common
         static let red: String = "Red"
@@ -60,6 +54,7 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     }
     
     // MARK: - Variables
+    private let interactor: WishMakerBusinessLogic
     private let titleView = UILabel()
     private let discriptionView = UILabel()
     private let sliderRed = CustomSlider(title: Constants.red, min: Constants.sliderMin, max: Constants.sliderMax)
@@ -76,15 +71,21 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
     private var greenLevel = Constants.colorIntensity
     
     
-    var presenter: WishMakerPresenterProtocol?
+    init(interactor: WishMakerBusinessLogic) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    // MARK: - Lifecycle
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
     
-    // MARK: - Private funcs
     private func configureUI() {
         view.backgroundColor = .black
 
@@ -136,22 +137,11 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         sliderStack.setWidth(Constants.colorStackWidth)
         sliderStack.pinTop(to: discriptionView.bottomAnchor, Constants.colorStackTop)
         
-        sliderRed.valueChanged = { [weak self] value in
-            self!.redLevel = Double(value)
-            self?.presenter?.slidersValueDidChange(red: self?.redLevel ?? 0, green: self?.greenLevel ?? 0, blue: self?.blueLevel ?? 0)
-        }
-        
-        sliderGreen.valueChanged = { [weak self] value in
-            self!.greenLevel = Double(value)
-            self?.presenter?.slidersValueDidChange(red: self?.redLevel ?? 0, green: self?.greenLevel ?? 0, blue: self?.blueLevel ?? 0)
-        }
-        
-        sliderBlue.valueChanged = { [weak self] value in
-            self!.blueLevel = Double(value)
-            self?.presenter?.slidersValueDidChange(red: self?.redLevel ?? 0, green: self?.greenLevel ?? 0, blue: self?.blueLevel ?? 0)
-        }
+        sliderRed.valueChanged = { [weak self] value in self?.sliderChanged() }
+        sliderGreen.valueChanged = { [weak self] value in self?.sliderChanged() }
+        sliderBlue.valueChanged = { [weak self] value in self?.sliderChanged() }
     }
-    
+
     private func configureActionStack() {
         actionStack.axis = .vertical
         actionStack.spacing = Constants.actionStackSpacing
@@ -185,29 +175,29 @@ final class WishMakerViewController: UIViewController, WishMakerViewProtocol {
         scheduleWishButton.addTarget(self, action: #selector(scheduleWishButtonPressed), for: .touchUpInside)
     }
     
-    // MARK: - Func
-    func updateBackgroundColor(red: CGFloat, green: CGFloat, blue: CGFloat) {
-        view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: Constants.colorSaturation)
-        print(Double(red + green + blue))
-        if Double(red + green + blue) > Constants.brightnessLevel {
-            titleView.textColor = .black
-            discriptionView.textColor = .black
-        } else {
-            titleView.textColor = .white
-            discriptionView.textColor = .white
-        }
+    private func sliderChanged() {
+        let request = WishMakerModel.ColorChange.Request(
+            red: sliderRed.value,
+            green: sliderGreen.value,
+            blue: sliderBlue.value
+        )
+        interactor.changedSliderPosition(request)
     }
     
-    // MARK: - Actions
+    func updateBackground(_ viewModel: WishMakerModel.ColorChange.ViewModel) {
+        view.backgroundColor = viewModel.backgroundColor
+        titleView.textColor = viewModel.textColor
+        discriptionView.textColor = viewModel.textColor
+    }
+    
     @objc
     private func addWishButtonPressed() {
-        present(WishStoringViewController(), animated: true)
+        interactor.addWishButtonPressed()
     }
     
     @objc
     private func scheduleWishButtonPressed() {
-        navigationController?.pushViewController(calendarViewController, animated: true)
+        interactor.scheduleWishButtonPressed()
     }
-    
 }
 

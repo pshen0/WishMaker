@@ -7,10 +7,8 @@
 
 import UIKit
 
-
 final class WishStoringViewController: UIViewController {
-
-    // MARK: - Constants
+    
     enum Constants {
         // Common
         static let wishesKey = "wishesKey"
@@ -34,23 +32,51 @@ final class WishStoringViewController: UIViewController {
         )
     }
     
-    // MARK: - Variables
+    private let interactor: WishStoringBusinessLogic
     private let backButton: UIButton = UIButton()
     private let defaults = UserDefaults.standard
     
     var wishes: [WishEntity] = []
     var table: UITableView = UITableView(frame: .zero)
     
-    override func viewDidLoad() {
-        configureUI()
+    init(interactor: WishStoringBusinessLogic) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
     }
     
-    // MARK: - Private funcs
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+        interactor.loadWishes(WishStoringModel.Fetch.Request())
+    }
+    
     private func configureUI() {
         view.backgroundColor = Constants.lightBlue
-        loadWishes()
         configureTable()
         configureBackButton()
+    }
+    
+    private func configureTable() {
+        table.backgroundColor = Constants.lightBlue
+        table.dataSource = self
+        table.separatorStyle = .none
+        table.layer.cornerRadius = Constants.tableCornerRadius
+        table.isUserInteractionEnabled = true
+        table.contentInset = .zero
+        table.layer.borderColor = UIColor.black.cgColor
+        table.layer.borderWidth = 1.0
+        table.separatorColor = UIColor.black 
+        view.addSubview(table)
+        
+        table.pin(to: view, Constants.tableOffset)
+        
+        table.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.reuseId)
+        table.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.reuseId)
     }
     
     private func configureBackButton() {
@@ -65,46 +91,31 @@ final class WishStoringViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    private func configureTable() {
-        table.backgroundColor = Constants.lightBlue
-        table.dataSource = self
-        table.separatorStyle = .none
-        table.layer.cornerRadius = Constants.tableCornerRadius
-        table.isUserInteractionEnabled = true
-        table.contentInset = .zero
-        
-        view.addSubview(table)
-        
-        table.pin(to: view, Constants.tableOffset)
-        
-        table.register(WrittenWishCell.self, forCellReuseIdentifier: WrittenWishCell.reuseId)
-        table.register(AddWishCell.self, forCellReuseIdentifier: AddWishCell.reuseId)
-    }
-    
-    private func loadWishes() {
-        wishes = CoreDataWishStack.shared.fetchWishes()
-        table.reloadData()
-    }
-
-    private func saveWishes(_ wishText: String) {
-        CoreDataWishStack.shared.addWish(wishText)
-        loadWishes()
-    }
-    
-    private func deleteWish(at indexPath: IndexPath) {
-        let wishToDelete = wishes[indexPath.row]
-        CoreDataWishStack.shared.deleteWish(wishToDelete)
-        loadWishes()
-    }
-    
-    // MARK: - Actions
     @objc
     private func backButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func displayLoading() {
+        table.reloadData()
+    }
+    
+    func displayAdding() {
+        table.reloadData()
+        print(wishes.count)
+        let num = table.numberOfRows(inSection: 0)
+        print(num)
+    }
+    
+    func displayDeleting(viewModel: WishStoringModel.Delete.ViewModel) {
+        table.deselectRow(at: viewModel.indexPath, animated: true)
+        table.reloadData()
+        print(wishes.count)
+        let num = table.numberOfRows(inSection: 0)
+        print(num)
+    }
 }
 
-// MARK: - UITableViewDataSource
 extension WishStoringViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return Constants.tableSections
@@ -118,19 +129,19 @@ extension WishStoringViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddWishCell.reuseId, for: indexPath) as! AddWishCell
             cell.addWish = { [weak self] newWish in
-                self?.saveWishes(newWish)
+                self?.interactor.addWish(WishStoringModel.Add.Request(text: newWish))
+                self?.interactor.loadWishes(WishStoringModel.Fetch.Request())
             }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: WrittenWishCell.reuseId, for: indexPath) as! WrittenWishCell
             cell.configure(with: wishes[indexPath.row].text ?? Constants.emptyString)
 
-            cell.deleteAction = { [weak self] in
-                self?.deleteWish(at: indexPath)
+            cell.deleteWish = { [weak self] in
+                self?.interactor.deleteWish(WishStoringModel.Delete.Request(indexPath: indexPath))
+                self?.interactor.loadWishes(WishStoringModel.Fetch.Request())
             }
-            
             return cell
         }
     }
 }
-

@@ -5,18 +5,31 @@
 //  Created by Анна Сазонова on 04.11.2024.
 //
 
-import Foundation
+import UIKit
 
-protocol WishMakerPresenterProtocol {
-    func slidersValueDidChange(red: CGFloat, green: CGFloat, blue: CGFloat)
+protocol WishMakerPresentationLogic {
+    func presentBackgroundColor(_ response: WishMakerModel.ColorChange.Response, textColor: UIColor)
+    func routeToWishStoring()
+    func routeToWishCalendar()
 }
 
-final class WishMakerPresenter: WishMakerPresenterProtocol {
+final class WishMakerPresenter: WishMakerPresentationLogic {
     
-    weak var view: WishMakerViewProtocol?
-    var interactor: WishMakerInteractorProtocol?
-
-    func slidersValueDidChange(red: CGFloat, green: CGFloat, blue: CGFloat) {
-        view?.updateBackgroundColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue))
+    weak var view: WishMakerViewController?
+    
+    func presentBackgroundColor(_ response: WishMakerModel.ColorChange.Response, textColor: UIColor) {
+        let viewModel = WishMakerModel.ColorChange.ViewModel(
+            backgroundColor: UIColor(red: response.red, green: response.green, blue: response.blue, alpha:  WishMakerViewController.Constants.colorSaturation),
+            textColor: textColor
+        )
+        view?.updateBackground(viewModel)
+    }
+    
+    func routeToWishStoring() {
+        view?.present(WishStoringBuilder.build(), animated: true)
+    }
+    
+    func routeToWishCalendar() {
+        view?.navigationController?.pushViewController(WishCalendarViewController(), animated: true)
     }
 }

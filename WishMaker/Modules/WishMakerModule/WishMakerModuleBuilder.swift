@@ -5,18 +5,15 @@
 //  Created by Анна Сазонова on 12.02.2025.
 //
 
-import Foundation
+import UIKit
 
-final class WishMakerModuleBuilder {
+enum WishMakerBuilder {
     static func build() -> WishMakerViewController {
-        let viewController = WishMakerViewController()
         let presenter = WishMakerPresenter()
-        let interactor = WishMakerInteractor()
+        let interactor = WishMakerInteractor(presenter: presenter)
+        let view = WishMakerViewController(interactor: interactor)
+        presenter.view = view
         
-        viewController.presenter = presenter
-        presenter.view = viewController
-        presenter.interactor = interactor
-        
-        return viewController
+        return view
     }
 }

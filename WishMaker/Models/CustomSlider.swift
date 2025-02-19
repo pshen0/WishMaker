@@ -27,6 +27,11 @@ final class CustomSlider: UIView {
     var slider = UISlider()
     var titleView = UILabel()
     
+    var value: CGFloat {
+        get { CGFloat(slider.value) }
+        set { slider.value = Float(newValue) }
+    }
+    
     init(title: String, min: Double, max: Double) {
         super.init(frame: .zero)
         titleView.text = title

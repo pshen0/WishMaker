@@ -32,7 +32,7 @@ final class WrittenWishCell: UITableViewCell {
     private let wishLabel: UILabel = UILabel()
     private let deleteButton: UIButton = UIButton()
     
-    var deleteAction: (() -> Void)?
+    var deleteWish: (() -> Void)?
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -97,6 +97,7 @@ final class WrittenWishCell: UITableViewCell {
     
     @objc
     private func deleteButtonTapped() {
-        deleteAction?()
+        deleteWish?()
     }
+    
 }
