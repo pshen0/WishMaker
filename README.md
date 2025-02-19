@@ -6,8 +6,8 @@ WishMaker
 WishMaker – мобильное приложение на Swift (UIKit, Xcode) с архитектурой SVIP и Core Data для хранения данных.
 
 * WishMakerViewController – кастомные слайдеры для изменения цвета фона.
-* WishStoringViewController – ввод, сохранение и удаление записей в UICollectionView.
-* WishCalendarViewController – отображение событий пользователя в кастомных ячейках.
+* WishStoringViewController – ввод, сохранение и удаление записей в UITableView.
+* WishCalendarViewController – отображение событий пользователя в кастомных ячейках через UICollectionView.
 * WishEventCreationViewController – создание и добавление новых событий в календарь.
 
 Функционал
