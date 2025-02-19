@@ -11,6 +11,7 @@ final class WishMakerViewController: UIViewController {
     
     enum Constants {
         // Common
+        static let initError: String = "init(coder:) has not been implemented"
         static let red: String = "Red"
         static let green: String = "Green"
         static let blue: String = "Blue"
@@ -64,7 +65,7 @@ final class WishMakerViewController: UIViewController {
     private let scheduleWishButton: UIButton = UIButton(type: .system)
     private let sliderStack = UIStackView()
     private let actionStack = UIStackView()
-    private let calendarViewController = WishCalendarModuleBuilder.build()
+    private let calendarViewController = WishCalendarBuilder.build()
     
     private var redLevel = Constants.colorIntensity
     private var blueLevel = Constants.colorIntensity
@@ -78,7 +79,7 @@ final class WishMakerViewController: UIViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     override func viewDidLoad() {
@@ -192,12 +193,11 @@ final class WishMakerViewController: UIViewController {
     
     @objc
     private func addWishButtonPressed() {
-        interactor.addWishButtonPressed()
+        interactor.addWishButtonPressed(WishMakerModel.RouteToWishStoring.Request())
     }
     
     @objc
     private func scheduleWishButtonPressed() {
-        interactor.scheduleWishButtonPressed()
+        interactor.scheduleWishButtonPressed(WishMakerModel.RouteToWishCalendar.Request())
     }
 }
-

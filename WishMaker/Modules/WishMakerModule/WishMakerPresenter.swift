@@ -9,8 +9,8 @@ import UIKit
 
 protocol WishMakerPresentationLogic {
     func presentBackgroundColor(_ response: WishMakerModel.ColorChange.Response, textColor: UIColor)
-    func routeToWishStoring()
-    func routeToWishCalendar()
+    func routeToWishStoring(_ response: WishMakerModel.RouteToWishStoring.Response)
+    func routeToWishCalendar(_ response: WishMakerModel.RouteToWishCalendar.Response)
 }
 
 final class WishMakerPresenter: WishMakerPresentationLogic {
@@ -25,11 +25,11 @@ final class WishMakerPresenter: WishMakerPresentationLogic {
         view?.updateBackground(viewModel)
     }
     
-    func routeToWishStoring() {
+    func routeToWishStoring(_ response: WishMakerModel.RouteToWishStoring.Response) {
         view?.present(WishStoringBuilder.build(), animated: true)
     }
     
-    func routeToWishCalendar() {
-        view?.navigationController?.pushViewController(WishCalendarViewController(), animated: true)
+    func routeToWishCalendar(_ response: WishMakerModel.RouteToWishCalendar.Response) {
+        view?.navigationController?.pushViewController(WishCalendarBuilder.build(), animated: true)
     }
 }

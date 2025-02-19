@@ -72,6 +72,7 @@ final class WishEventCell: UICollectionViewCell {
     private let endDateLabel: UILabel = UILabel()
     
     var deleteCell: (() -> Void)?
+    private var datesArray: Array<UILabel> = []
     
     // MARK: - Lifecycle
     override init(frame: CGRect) {
@@ -119,9 +120,7 @@ final class WishEventCell: UICollectionViewCell {
     private func configureDatesView() {
         datesStack.axis = .vertical
         datesStack.spacing = Constants.datesStackSpacing
-        let datesArray: Array<UILabel> = [startDateLabel, endDateLabel]
-        
-        
+        datesArray = [startDateLabel, endDateLabel]
         
         for dateLabel in datesArray {
             datesStack.addArrangedSubview(dateLabel)
@@ -178,6 +177,15 @@ final class WishEventCell: UICollectionViewCell {
             startDateLabel.text = "\(dateFormatter.string(from: startDate))"
             endDateLabel.text = "\(dateFormatter.string(from: endDate))"
         }
+        
+        if startDateLabel.text == endDateLabel.text {
+            datesArray = [startDateLabel]
+        }
+    }
+    
+    func resetAppearance() {
+        wrapView.backgroundColor = Constants.white
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
     }
     
     @objc

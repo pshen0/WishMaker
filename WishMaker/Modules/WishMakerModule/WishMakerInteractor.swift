@@ -9,8 +9,8 @@ import UIKit
 
 protocol WishMakerBusinessLogic {
     func changedSliderPosition(_ request: WishMakerModel.ColorChange.Request)
-    func addWishButtonPressed()
-    func scheduleWishButtonPressed()
+    func addWishButtonPressed(_ request: WishMakerModel.RouteToWishStoring.Request)
+    func scheduleWishButtonPressed(_ request: WishMakerModel.RouteToWishCalendar.Request)
 }
 
 final class WishMakerInteractor: WishMakerBusinessLogic {
@@ -32,11 +32,11 @@ final class WishMakerInteractor: WishMakerBusinessLogic {
         presenter.presentBackgroundColor(response, textColor: textColor)
     }
     
-    func addWishButtonPressed() {
-        presenter.routeToWishStoring()
+    func addWishButtonPressed(_ request: WishMakerModel.RouteToWishStoring.Request) {
+        presenter.routeToWishStoring(WishMakerModel.RouteToWishStoring.Response())
     }
     
-    func scheduleWishButtonPressed() {
-        presenter.routeToWishCalendar()
+    func scheduleWishButtonPressed(_ request: WishMakerModel.RouteToWishCalendar.Request) {
+        presenter.routeToWishCalendar(WishMakerModel.RouteToWishCalendar.Response())
     }
 }

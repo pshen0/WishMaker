@@ -5,19 +5,13 @@
 //  Created by Анна Сазонова on 13.02.2025.
 //
 
-
 import UIKit
 
-// MARK: - WishCalendarView Protocol
-protocol WishCalendarViewProtocol: AnyObject {
-
-}
-
-final class WishCalendarViewController: UIViewController, WishCalendarViewProtocol {
+final class WishCalendarViewController: UIViewController {
     
-    // MARK: - Constants
     enum Constants {
         // Common
+        static let initError: String = "init(coder:) has not been implemented"
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
         static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -47,6 +41,7 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         )
     }
     
+    private let interactor: WishCalendarBusinessLogic
     private let addEventButton: UIButton = UIButton()
     private let backButton: UIButton = UIButton()
     private let collectionView: UICollectionView = UICollectionView(
@@ -54,33 +49,38 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         collectionViewLayout: UICollectionViewFlowLayout()
     )
     
-    // MARK: - Variables
-    var presenter: WishCalendarPresenter?
-    private var events: [EventEntity] = []
+    var events: [EventEntity] = []
     
-    // MARK: - Lifecycle
+    init(interactor: WishCalendarBusinessLogic) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError(Constants.initError)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        interactor.loadEvents(WishCalendarModel.Fetch.Request())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        fetchEvents()
     }
-
     
-    // MARK: - Private funcs
     private func configureUI() {
         view.backgroundColor = Constants.lightBlue
-        loadCells()
+        configureCells()
         configureBackButton()
         configureCollection()
         configureAddWishButton()
     }
     
-    private func loadCells() {
+    private func configureCells() {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = Constants.collectionSpacing
             layout.minimumLineSpacing = Constants.collectionSpacing
@@ -128,34 +128,22 @@ final class WishCalendarViewController: UIViewController, WishCalendarViewProtoc
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    private func fetchEvents() {
-        events = CoreDataEventStack.shared.fetchEvents()
+    func displayDeleting(_ viewModel: WishCalendarModel.Delete.ViewModel) {
+        collectionView.performBatchUpdates({collectionView.deleteItems(at: [viewModel.indexPath])}, completion: nil)
+    }
+    
+    func displayEvents(_ viewModel: WishCalendarModel.Fetch.ViewModel) {
         collectionView.reloadData()
     }
     
-    private func deleteEvent(at indexPath: IndexPath) {
-        let eventToDelete = events[indexPath.item]
-        CoreDataEventStack.shared.deleteEvent(eventToDelete)
-        events.remove(at: indexPath.item)
-        collectionView.performBatchUpdates({
-            collectionView.deleteItems(at: [indexPath])
-        }, completion: nil)
-    }
-    
-    @objc 
+    @objc
     private func addEventButtonTapped() {
-        let wishEventCreationVC = WishEventCreationModuleBuilder.build()
-        
-        wishEventCreationVC.onEventAdded = { [weak self] in
-            self?.fetchEvents()
-        }
-        
-        present(wishEventCreationVC, animated: true)
+        interactor.addEventButtonTapped(WishCalendarModel.RouteToWishEventCreator.Request())
     }
     
     @objc
     private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        interactor.backButtonTapped(WishCalendarModel.RouteBack.Request())
     }
 }
 
@@ -174,9 +162,8 @@ extension WishCalendarViewController: UICollectionViewDataSource, UICollectionVi
         
         cell.deleteCell = { [weak self, weak collectionView] in
             guard let index = collectionView?.indexPath(for: cell) else { return }
-            self?.deleteEvent(at: index)
+            self?.interactor.deleteEvent(WishCalendarModel.Delete.Request(indexPath: index))
         }
-        
         return cell
     }
     
@@ -184,5 +171,4 @@ extension WishCalendarViewController: UICollectionViewDataSource, UICollectionVi
         let width = collectionView.frame.width - Constants.collectionCellOffset
         return CGSize(width: width, height: Constants.collectionCellHeight)
     }
-    
 }

@@ -1,42 +1,36 @@
 //
-//  WishStoringModel.swift
+//  WishCalendarModel.swift
 //  WishMaker
 //
 //  Created by Анна Сазонова on 19.02.2025.
 //
 
-import Foundation
+import UIKit
 
-enum WishStoringModel {
-    
+enum WishCalendarModel {
     enum Fetch {
         struct Request { }
         struct Response {
-            let wishes: [WishEntity]
+            let events: [EventEntity]
         }
         struct ViewModel { }
     }
-    
-    enum Add {
-        struct Request {
-            let text: String
-        }
-        struct Response {
-            let wishes: [WishEntity]
-        }
-        struct ViewModel { }
-    }
-    
     enum Delete {
         struct Request {
             let indexPath: IndexPath
         }
         struct Response {
             let indexPath: IndexPath
-            let wishes: [WishEntity]
         }
         struct ViewModel {
             let indexPath: IndexPath
+        }
+    }
+    
+    enum RouteToWishEventCreator {
+        struct Request { }
+        struct Response {
+            let viewController: WishEventCreatorViewController
         }
     }
     
@@ -44,5 +38,4 @@ enum WishStoringModel {
         struct Request { }
         struct Response { }
     }
-    
 }

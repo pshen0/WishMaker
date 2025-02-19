@@ -11,6 +11,7 @@ protocol WishStoringBusinessLogic {
     func loadWishes(_ request: WishStoringModel.Fetch.Request)
     func addWish(_ request: WishStoringModel.Add.Request)
     func deleteWish(_ request: WishStoringModel.Delete.Request)
+    func backButtonTapped(_ request: WishStoringModel.RouteBack.Request)
 }
 
 final class WishStoringInteractor: WishStoringBusinessLogic {
@@ -38,5 +39,9 @@ final class WishStoringInteractor: WishStoringBusinessLogic {
         CoreDataWishStack.shared.deleteWish(wishToDelete)
         let wishes = wishService.fetchWishes()
         presenter.presentWishDeleted(WishStoringModel.Delete.Response(indexPath: request.indexPath, wishes: wishes))
+    }
+    
+    func backButtonTapped(_ request: WishStoringModel.RouteBack.Request) {
+        presenter.routeBack(WishStoringModel.RouteBack.Response())
     }
 }

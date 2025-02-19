@@ -11,7 +11,7 @@ protocol WishStoringPresentationLogic {
     func presentWishes(_ response: WishStoringModel.Fetch.Response)
     func presentWishAdded(_ response: WishStoringModel.Add.Response)
     func presentWishDeleted(_ response: WishStoringModel.Delete.Response)
-    func routeTo()
+    func routeBack(_ response: WishStoringModel.RouteBack.Response)
 }
 
 final class WishStoringPresenter: WishStoringPresentationLogic {
@@ -20,21 +20,20 @@ final class WishStoringPresenter: WishStoringPresentationLogic {
     
     func presentWishes(_ response: WishStoringModel.Fetch.Response) {
         view?.wishes = response.wishes
-        view?.displayLoading()
+        view?.displayLoading(WishStoringModel.Fetch.ViewModel())
     }
     
     func presentWishAdded(_ response: WishStoringModel.Add.Response) {
         view?.wishes = response.wishes
-        view?.displayAdding()
+        view?.displayAdding(WishStoringModel.Add.ViewModel())
     }
     
     func presentWishDeleted(_ response: WishStoringModel.Delete.Response) {
         view?.wishes.remove(at: response.indexPath.row)
-        view?.displayDeleting(viewModel: WishStoringModel.Delete.ViewModel(indexPath: response.indexPath))
+        view?.displayDeleting(WishStoringModel.Delete.ViewModel(indexPath: response.indexPath))
     }
     
-    func routeTo() {
-        
+    func routeBack(_ response: WishStoringModel.RouteBack.Response) {
+        view?.dismiss(animated: true, completion: nil)
     }
-
 }

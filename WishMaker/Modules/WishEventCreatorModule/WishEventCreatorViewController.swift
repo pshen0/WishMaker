@@ -1,5 +1,5 @@
 //
-//  WishEventCreationViewController.swift
+//  WishEventCreatorViewController.swift
 //  aasazonova_1PW3
 //
 //  Created by Анна Сазонова on 13.02.2025.
@@ -7,16 +7,12 @@
 
 import UIKit
 
-// MARK: - WishEventCreationView Protocol
-protocol WishEventCreationViewProtocol: AnyObject {
-
-}
-
-final class WishEventCreationViewController: UIViewController, WishEventCreationViewProtocol {
+final class WishEventCreatorViewController: UIViewController {
     
-    // MARK: - Constants
     enum Constants {
         // Common
+        static let initError: String = "init(coder:) has not been implemented"
+        static let saveError: String = "Ошибка сохранения события"
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
         static let formatterString: String = "dd.MM.yyyy"
@@ -63,7 +59,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         )
     }
     
-    
+    private let interactor: WishEventCreatorBusinessLogic
     private let backButton: UIButton = UIButton()
     private let creationTitle: UILabel = UILabel()
     private let titleTextField = UITextField()
@@ -77,16 +73,23 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
     
     // MARK: - Variables
     var fieldsStack: UIStackView = UIStackView()
-    var presenter: WishEventCreationPresenter?
     var onEventAdded: (() -> Void)?
     
-    // MARK: - Lifecycle
+    init(interactor: WishEventCreatorBusinessLogic) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError(Constants.initError)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
     
-    // MARK: - Private funcs
     private func configureUI() {
         view.backgroundColor = Constants.lightBlue
         configureBackButton()
@@ -191,19 +194,9 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         addEventButton.addTarget(self, action: #selector(addEventTapped), for: .touchUpInside)
     }
     
-    private func checkDates(start: String, end: String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.formatterString
-        if let firstDate = dateFormatter.date(from: start), let secondDate = dateFormatter.date(from: end) {
-            return firstDate <= secondDate
-        } else {
-            return false
-        }
-    }
-    
     @objc
     private func backButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        interactor.backButtonTapped(WishEventCreatorModel.RouteBack.Request())
     }
     
     @objc private func dateStartChanged(_ sender: UIDatePicker) {
@@ -228,7 +221,7 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         guard let title = titleTextField.text, !title.isEmpty,
               let note = noteTextField.text,
               let startText = dateStartTextField.text, let endText = dateEndTextField.text,
-              checkDates(start: startText, end: endText)
+              interactor.checkDates(WishEventCreatorModel.CheckDates.Request(start: startText, end: endText))
         else {
             creationRule.isHidden = false
             return
@@ -237,7 +230,12 @@ final class WishEventCreationViewController: UIViewController, WishEventCreation
         dismissKeyboard()
         creationRule.isHidden = true
         
-        let isCreated = presenter?.createEvent(title: title, note: note, startDate: dateStartPicker.date, endDate: dateEndPicker.date) ?? false
+        let isCreated = interactor.eventIsCreated(WishEventCreatorModel.CreateEvent.Request(
+            title: title, 
+            note: note,
+            startDate: dateStartPicker.date,
+            endDate: dateEndPicker.date)
+        )
         
         if isCreated {
             for field in [titleTextField, noteTextField, dateStartTextField, dateEndTextField] {
@@ -255,5 +253,3 @@ extension UITextField {
         self.leftViewMode = .always
     }
 }
-
-

@@ -13,6 +13,7 @@ final class WishStoringViewController: UIViewController {
         // Common
         static let wishesKey = "wishesKey"
         static let emptyString: String = ""
+        static let initError: String = "init(coder:) has not been implemented"
         static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
         static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
         static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
@@ -46,7 +47,7 @@ final class WishStoringViewController: UIViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constants.initError)
     }
     
     override func viewDidLoad() {
@@ -68,9 +69,9 @@ final class WishStoringViewController: UIViewController {
         table.layer.cornerRadius = Constants.tableCornerRadius
         table.isUserInteractionEnabled = true
         table.contentInset = .zero
-        table.layer.borderColor = UIColor.black.cgColor
-        table.layer.borderWidth = 1.0
-        table.separatorColor = UIColor.black 
+//        table.layer.borderColor = UIColor.black.cgColor
+//        table.layer.borderWidth = 1.0
+//        table.separatorColor = UIColor.black
         view.addSubview(table)
         
         table.pin(to: view, Constants.tableOffset)
@@ -93,26 +94,20 @@ final class WishStoringViewController: UIViewController {
     
     @objc
     private func backButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        interactor.backButtonTapped(WishStoringModel.RouteBack.Request())
     }
     
-    func displayLoading() {
+    func displayLoading(_ viewModel: WishStoringModel.Fetch.ViewModel) {
         table.reloadData()
     }
     
-    func displayAdding() {
+    func displayAdding(_ viewModel: WishStoringModel.Add.ViewModel) {
         table.reloadData()
-        print(wishes.count)
-        let num = table.numberOfRows(inSection: 0)
-        print(num)
     }
     
-    func displayDeleting(viewModel: WishStoringModel.Delete.ViewModel) {
+    func displayDeleting(_ viewModel: WishStoringModel.Delete.ViewModel) {
         table.deselectRow(at: viewModel.indexPath, animated: true)
         table.reloadData()
-        print(wishes.count)
-        let num = table.numberOfRows(inSection: 0)
-        print(num)
     }
 }
 

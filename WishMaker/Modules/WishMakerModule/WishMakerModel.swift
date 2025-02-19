@@ -24,4 +24,14 @@ enum WishMakerModel {
             let textColor: UIColor
         }
     }
+    
+    enum RouteToWishStoring {
+        struct Request { }
+        struct Response { }
+    }
+    
+    enum RouteToWishCalendar {
+        struct Request { }
+        struct Response { }
+    }
 }
