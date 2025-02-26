@@ -12,8 +12,8 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 
 Функционал
 -
-Основной экран - **WishMaker** - содержит стек кастомных слайдеров для изменения фона экрана, кнопку "Add wishes"
-для перехода к WishStoring, кнопку "Schedule wishes granting" для перехода к WishCalendar.
+Основной экран - **WishMaker** - содержит стек кастомных слайдеров для изменения фона всех контроллеров и кнопок в приложении, 
+кнопку "Add wishes" для перехода к WishStoring, кнопку "Schedule wishes granting" для перехода к WishCalendar.
 
 <div style="display: flex; justify-content: space-between;">
   <img src="WishMaker/Resources/AppDiscriptionImages/Sliders1.PNG" width="200">

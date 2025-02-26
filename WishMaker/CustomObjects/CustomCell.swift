@@ -8,13 +8,15 @@
 import UIKit
 
 final class WrittenWishCell: UITableViewCell {
-    
     // MARK: - Constants
     private enum Constants {
         // Common
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
         static let initError: String = "init(coder:) has not been implemented"
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
+        static let colorShift: CGFloat = 0.35
         
         static let wrapColor: UIColor = .white
         static let wrapRadius: CGFloat = 16
@@ -28,16 +30,21 @@ final class WrittenWishCell: UITableViewCell {
         static let deleteButtonRights: CGFloat = 10
     }
     
+    // MARK: - Fields
     static let reuseId: String = "WrittenWishCell"
     private let wishLabel: UILabel = UILabel()
     private let deleteButton: UIButton = UIButton()
-    
     var deleteWish: (() -> Void)?
+    var mainColor = Constants.black
+    var mainColorDark = Constants.black
+    var additionalColor = Constants.white
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Constants.lightBlue
+        mainColor = UserDefaults.standard.color(forKey: Constants.mainColorID) ?? Constants.black
+        additionalColor = UserDefaults.standard.color(forKey: Constants.additionalColorID) ?? Constants.white
+        mainColorDark = getDarkerColor(mainColor)
         configureUI()
     }
     
@@ -46,16 +53,27 @@ final class WrittenWishCell: UITableViewCell {
         fatalError(Constants.initError)
     }
     
-    // MARK: - Funcs
-    func configure(with wish: String) {
-        wishLabel.text = wish
-    }
-    
+    // MARK: - Private funcs
     private func configureUI() {
+        backgroundColor = mainColor
         selectionStyle = .none
         configureWrap()
         configureLabel()
         configureDeleteButton()
+    }
+    
+    private func getDarkerColor(_ color: UIColor) -> UIColor {
+        var redLevel: CGFloat = 0
+        var greenLevel: CGFloat = 0
+        var blueLevel: CGFloat = 0
+        var alphaLevel: CGFloat = 0
+        color.getRed(&redLevel, green: &greenLevel, blue: &blueLevel, alpha: &alphaLevel)
+        
+        redLevel = redLevel - Constants.colorShift < 0 ? 0 : redLevel - Constants.colorShift
+        greenLevel = greenLevel - Constants.colorShift < 0 ? 0 : greenLevel - Constants.colorShift
+        blueLevel = blueLevel - Constants.colorShift < 0 ? 0 : blueLevel - Constants.colorShift
+        
+        return UIColor(red: redLevel, green: greenLevel, blue: blueLevel, alpha: alphaLevel)
     }
     
     private func configureWrap() {
@@ -67,7 +85,7 @@ final class WrittenWishCell: UITableViewCell {
     }
     
     private func configureLabel() {
-        wishLabel.textColor = Constants.darkBlue
+        wishLabel.textColor = mainColorDark
         wishLabel.numberOfLines = Constants.wishLabelLines
         wishLabel.lineBreakMode = .byWordWrapping
         
@@ -80,7 +98,7 @@ final class WrittenWishCell: UITableViewCell {
     
     private func configureDeleteButton() {
         deleteButton.setImage(Constants.trashImage, for: .normal)
-        deleteButton.tintColor = Constants.darkBlue
+        deleteButton.tintColor = mainColorDark
         
         contentView.addSubview(deleteButton)
         
@@ -90,11 +108,17 @@ final class WrittenWishCell: UITableViewCell {
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
     
+    // MARK: - Funcs
+    func configure(with wish: String) {
+        wishLabel.text = wish
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         wishLabel.preferredMaxLayoutWidth = contentView.bounds.width - Constants.wishLabelOffset * 2
     }
     
+    // MARK: - Actions
     @objc
     private func deleteButtonTapped() {
         deleteWish?()

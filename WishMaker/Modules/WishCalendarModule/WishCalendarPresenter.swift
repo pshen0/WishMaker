@@ -5,7 +5,9 @@
 //  Created by Анна Сазонова on 13.02.2025.
 //
 
+// MARK: - PresentationLogic protocol
 protocol WishCalendarPresentationLogic {
+    func setColors(_ response: WishCalendarModel.Load.Response)
     func presentEvents(_ respone: WishCalendarModel.Fetch.Response)
     func presentEventDeleted(_ response: WishCalendarModel.Delete.Response)
     func routeToWishEventCreator(_ response: WishCalendarModel.RouteToWishEventCreator.Response)
@@ -13,8 +15,17 @@ protocol WishCalendarPresentationLogic {
 }
 
 final class WishCalendarPresenter: WishCalendarPresentationLogic {
-    
+    // MARK: - Fields
     weak var view: WishCalendarViewController?
+    
+    // MARK: - Funcs
+    func setColors(_ response: WishCalendarModel.Load.Response) {
+        let viewModel = WishCalendarModel.Load.ViewModel(
+            mainColor: response.mainColor,
+            additionalColor: response.additionalColor
+        )
+        view?.updateColors(viewModel)
+    }
     
     func presentEvents(_ respone: WishCalendarModel.Fetch.Response) {
         view?.events = respone.events

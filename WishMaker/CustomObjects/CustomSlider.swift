@@ -8,12 +8,11 @@
 import UIKit
 
 final class CustomSlider: UIView {
-    
     // MARK: - Constants
     enum Constants {
         // Common
         static let initError: String = "init(coder:) has not been implemented"
-        static let black: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+        static let black: UIColor = UIColor.black
         
         static let titleTop: CGFloat = 10
         static let titleLeading: CGFloat = 20
@@ -22,16 +21,15 @@ final class CustomSlider: UIView {
         static let sliderLeading: CGFloat = 20
     }
     
-    // MARK: - Variables
+    // MARK: - Fields
     var valueChanged: ((Double) -> Void)?
     var slider = UISlider()
     var titleView = UILabel()
-    
     var value: CGFloat {
         get { CGFloat(slider.value) }
         set { slider.value = Float(newValue) }
     }
-    
+    // MARK: - Lifecycle
     init(title: String, min: Double, max: Double) {
         super.init(frame: .zero)
         titleView.text = title
@@ -50,29 +48,27 @@ final class CustomSlider: UIView {
         super.init(frame: frame)
     }
     
-    // MARK: - Actions
-    @objc
-    private func sliderValueChanged() {
-        valueChanged?(Double(slider.value))
-    }
-    
     // MARK: - Private func
     private func configureUI() {
         backgroundColor = .white
-        translatesAutoresizingMaskIntoConstraints = false
         titleView.textColor = Constants.black
         
         for view in [slider, titleView] {
             addSubview(view)
-            view.translatesAutoresizingMaskIntoConstraints = false
+            view.pinCenterX(to: centerXAnchor)
+            
         }
 
-        titleView.pinCenterX(to: centerXAnchor)
         titleView.pinTop(to: topAnchor, Constants.titleTop)
         titleView.pinLeft(to: leadingAnchor, Constants.titleLeading)
         slider.pinTop(to: titleView.bottomAnchor)
-        slider.pinCenterX(to: centerXAnchor)
         slider.pinBottom(to: bottomAnchor, Constants.sliderBottom)
         slider.pinLeft(to: leadingAnchor, Constants.sliderLeading)
+    }
+    
+    // MARK: - Actions
+    @objc
+    private func sliderValueChanged() {
+        valueChanged?(Double(slider.value))
     }
 }

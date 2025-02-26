@@ -7,10 +7,12 @@
 
 import EventKit
 
+// MARK: - CalendarEventManager protocol
 protocol CalendarEventManagerProtocol {
     func create(eventModel: CalendarEventModel) -> Bool
 }
 
+// MARK: - CalendarEventModel
 struct CalendarEventModel {
     var title: String
     var startDate: Date
@@ -19,14 +21,16 @@ struct CalendarEventModel {
 }
 
 final class CalendarEventManager: CalendarEventManagerProtocol {
-    
+    // MARK: - Constants
     enum Constants {
         // Common
         static let saveError: String = "Failed to save event with error"
     }
-    
+    // MARK: - Fields
     private let eventStore : EKEventStore = EKEventStore()
     
+    
+    // MARK: - Funcs
     func create(eventModel: CalendarEventModel) -> Bool {
         var result: Bool = false
         let group = DispatchGroup()

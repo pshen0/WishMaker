@@ -7,7 +7,9 @@
 
 import UIKit
 
+// MARK: - BusinessLogic protocol
 protocol WishMakerBusinessLogic {
+    func loadController(_ request: WishMakerModel.Load.Request)
     func changedSliderPosition(_ request: WishMakerModel.ColorChange.Request)
     func addWishButtonPressed(_ request: WishMakerModel.RouteToWishStoring.Request)
     func scheduleWishButtonPressed(_ request: WishMakerModel.RouteToWishCalendar.Request)
@@ -15,21 +17,31 @@ protocol WishMakerBusinessLogic {
 
 final class WishMakerInteractor: WishMakerBusinessLogic {
     
+    // MARK: - Fields
     private let presenter: WishMakerPresentationLogic
     
+    
+    // MARK: - Lifecycle
     init(presenter: WishMakerPresentationLogic) {
         self.presenter = presenter
     }
     
+    // MARK: - Funcs
+    func loadController(_ request: WishMakerModel.Load.Request) {
+        let savedMainColor = UserDefaults.standard.color(forKey: WishMakerViewController.Constants.mainColorID) ??
+        WishMakerViewController.Constants.black
+        let savedAdditionalColor = UserDefaults.standard.color(forKey: WishMakerViewController.Constants.additionalColorID) ??
+        WishMakerViewController.Constants.white
+        presenter.setColors(WishMakerModel.Load.Response(mainColor: savedMainColor, additionalColor: savedAdditionalColor))
+    }
+    
     func changedSliderPosition(_ request: WishMakerModel.ColorChange.Request) {
-        let brightness = Double(request.red + request.green + request.blue)
-        let textColor: UIColor = brightness > WishMakerViewController.Constants.brightnessLevel ? .black : .white
         let response = WishMakerModel.ColorChange.Response(
             red: request.red,
             green: request.green,
             blue: request.blue
         )
-        presenter.presentBackgroundColor(response, textColor: textColor)
+        presenter.changeColors(response)
     }
     
     func addWishButtonPressed(_ request: WishMakerModel.RouteToWishStoring.Request) {

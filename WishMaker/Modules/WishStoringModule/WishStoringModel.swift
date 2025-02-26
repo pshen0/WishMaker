@@ -5,10 +5,23 @@
 //  Created by Анна Сазонова on 19.02.2025.
 //
 
-import Foundation
+import UIKit
 
 enum WishStoringModel {
+    // MARK: - Load
+    enum Load {
+        struct Request { }
+        struct Response {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+        struct ViewModel {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+    }
     
+    // MARK: - Fetch
     enum Fetch {
         struct Request { }
         struct Response {
@@ -17,6 +30,7 @@ enum WishStoringModel {
         struct ViewModel { }
     }
     
+    // MARK: - Add
     enum Add {
         struct Request {
             let text: String
@@ -27,6 +41,7 @@ enum WishStoringModel {
         struct ViewModel { }
     }
     
+    // MARK: - Delete
     enum Delete {
         struct Request {
             let indexPath: IndexPath
@@ -40,6 +55,7 @@ enum WishStoringModel {
         }
     }
     
+    // MARK: - RouteBack
     enum RouteBack {
         struct Request { }
         struct Response { }

@@ -7,26 +7,26 @@
 
 import UIKit
 
-
-
 final class WishEventCell: UICollectionViewCell {
-    
+    // MARK: - Constants
     enum Constants {
         // Common
         static let initError: String = "init(coder:) has not been implemented"
         static let formatterString: String = "dd.MM.yyyy"
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
-        static let white: UIColor = .white
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
         static let smallBoldFont: UIFont = .boldSystemFont(ofSize: 12)
         static let smallFont: UIFont = .systemFont(ofSize: 14)
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
+        static let colorShift: CGFloat = 0.35
 
         static let wrapCornerRadius: CGFloat = 10
         static let wrapVetical: CGFloat = 3
         static let wrapHorizontal: CGFloat = 10
         static let titleBackHeight: CGFloat = 23
         static let titleBackTop: CGFloat = 10
-        static let titleBackWidth: CGFloat = 340
+        static let titleBackOffset: CGFloat = 10
         static let titleBackRadius: CGFloat = 5
         
         static let titleTop: CGFloat = 10
@@ -59,6 +59,7 @@ final class WishEventCell: UICollectionViewCell {
         )
     }
     
+    // MARK: - Fields
     static let reuseIdentifier: String = "WishEventCell"
     private let wrapView: UIView = UIView()
     private let titleBack: UIView = UIView()
@@ -73,10 +74,14 @@ final class WishEventCell: UICollectionViewCell {
     
     var deleteCell: (() -> Void)?
     private var datesArray: Array<UILabel> = []
+    private var mainColor = Constants.black
+    private var additionalColor = Constants.white
     
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
+        mainColor = UserDefaults.standard.color(forKey: Constants.mainColorID) ?? Constants.black
+        additionalColor = UserDefaults.standard.color(forKey: Constants.additionalColorID) ?? Constants.white
         configureWrap()
         configureTitleLabel()
         configureDatesView()
@@ -89,10 +94,13 @@ final class WishEventCell: UICollectionViewCell {
         fatalError(Constants.initError)
     }
     
+    // MARK: - Private funcs
     private func configureWrap() {
+        mainColor = getDarkerColor(mainColor)
+        
         wrapView.layer.cornerRadius = Constants.wrapCornerRadius
         wrapView.backgroundColor = Constants.white
-        titleBack.backgroundColor = Constants.darkBlue
+        titleBack.backgroundColor = mainColor
         titleBack.layer.cornerRadius = Constants.titleBackRadius
         
         addSubview(wrapView)
@@ -103,11 +111,25 @@ final class WishEventCell: UICollectionViewCell {
         titleBack.setHeight(Constants.titleBackHeight)
         titleBack.pinTop(to: wrapView.topAnchor, Constants.titleBackTop)
         titleBack.pinCenterX(to: wrapView)
-        titleBack.setWidth(Constants.titleBackWidth)
+        titleBack.pinHorizontal(to: wrapView, Constants.titleBackOffset)
+    }
+    
+    private func getDarkerColor(_ color: UIColor) -> UIColor {
+        var redLevel: CGFloat = 0
+        var greenLevel: CGFloat = 0
+        var blueLevel: CGFloat = 0
+        var alphaLevel: CGFloat = 0
+        color.getRed(&redLevel, green: &greenLevel, blue: &blueLevel, alpha: &alphaLevel)
+        
+        redLevel = redLevel - Constants.colorShift < 0 ? 0 : redLevel - Constants.colorShift
+        greenLevel = greenLevel - Constants.colorShift < 0 ? 0 : greenLevel - Constants.colorShift
+        blueLevel = blueLevel - Constants.colorShift < 0 ? 0 : blueLevel - Constants.colorShift
+        
+        return UIColor(red: redLevel, green: greenLevel, blue: blueLevel, alpha: alphaLevel)
     }
     
     private func configureTitleLabel() {
-        calendarView.tintColor = Constants.darkBlue
+        calendarView.tintColor = mainColor
         
         titleBack.addSubview(titleLabel)
         
@@ -124,7 +146,7 @@ final class WishEventCell: UICollectionViewCell {
         
         for dateLabel in datesArray {
             datesStack.addArrangedSubview(dateLabel)
-            dateLabel.textColor = Constants.darkBlue
+            dateLabel.textColor = mainColor
             dateLabel.font = Constants.smallBoldFont
         }
         
@@ -141,8 +163,8 @@ final class WishEventCell: UICollectionViewCell {
         discriptionLabel.numberOfLines = Constants.discriptionLines
         discriptionLabel.lineBreakMode = .byWordWrapping
         discriptionLabel.font = Constants.smallFont
-        discriptionLabel.textColor = Constants.darkBlue
-        noteView.tintColor = Constants.darkBlue
+        discriptionLabel.textColor = mainColor
+        noteView.tintColor = mainColor
         
         wrapView.addSubview(noteView)
         wrapView.addSubview(discriptionLabel)
@@ -156,7 +178,7 @@ final class WishEventCell: UICollectionViewCell {
     
     private func configureDeleteButton() {
         deleteButton.setImage(Constants.trashImage, for: .normal)
-        deleteButton.tintColor = Constants.darkBlue
+        deleteButton.tintColor = mainColor
         
         wrapView.addSubview(deleteButton)
         
@@ -166,7 +188,7 @@ final class WishEventCell: UICollectionViewCell {
         deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - Cell Configuration
+    // MARK: - Funcs
     func configure(with event: EventEntity) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = Constants.formatterString
@@ -185,9 +207,10 @@ final class WishEventCell: UICollectionViewCell {
     
     func resetAppearance() {
         wrapView.backgroundColor = Constants.white
-        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.font = Constants.titleFont
     }
     
+    // MARK: - Actions
     @objc
     private func deleteButtonTapped() {
         deleteCell?()

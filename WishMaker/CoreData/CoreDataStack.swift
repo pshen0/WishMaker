@@ -7,6 +7,7 @@
 
 import CoreData
 
+// MARK: - Constants
 enum CoreDataConstants {
     static let containerName: String = "DataModels"
     static let loadError: String = "Ошибка загрузки"
@@ -17,10 +18,10 @@ enum CoreDataConstants {
     static let wishSortKey: String = "dateAdded"
 }
 
+// MARK: - CoreDataEventStack class
 final class CoreDataEventStack {
-    
+    // MARK: - Fields
     static let shared = CoreDataEventStack()
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: CoreDataConstants.containerName)
         container.loadPersistentStores { _, error in
@@ -30,11 +31,11 @@ final class CoreDataEventStack {
         }
         return container
     }()
-    
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
+    // MARK: - Funcs
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -73,10 +74,10 @@ final class CoreDataEventStack {
     }
 }
 
-
+// MARK: - CoreDataWishStack class
 final class CoreDataWishStack {
+    // MARK: - Fields
     static let shared = CoreDataWishStack()
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: CoreDataConstants.containerName)
         container.loadPersistentStores { _, error in
@@ -86,11 +87,10 @@ final class CoreDataWishStack {
         }
         return container
     }()
-    
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-    
+    // MARK: - Funcs
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {

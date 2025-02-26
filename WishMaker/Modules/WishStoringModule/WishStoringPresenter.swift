@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - PresentationLogic protocol
 protocol WishStoringPresentationLogic {
+    func setColors(_ response: WishStoringModel.Load.Response)
     func presentWishes(_ response: WishStoringModel.Fetch.Response)
     func presentWishAdded(_ response: WishStoringModel.Add.Response)
     func presentWishDeleted(_ response: WishStoringModel.Delete.Response)
@@ -16,7 +18,18 @@ protocol WishStoringPresentationLogic {
 
 final class WishStoringPresenter: WishStoringPresentationLogic {
     
+    // MARK: - Fields
     weak var view: WishStoringViewController?
+    
+    
+    // MARK: - Funcs
+    func setColors(_ response: WishStoringModel.Load.Response) {
+        let viewModel = WishStoringModel.Load.ViewModel(
+            mainColor: response.mainColor,
+            additionalColor: response.additionalColor
+        )
+        view?.updateColors(viewModel)
+    }
     
     func presentWishes(_ response: WishStoringModel.Fetch.Response) {
         view?.wishes = response.wishes

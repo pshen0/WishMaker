@@ -8,6 +8,21 @@
 import UIKit
 
 enum WishEventCreatorModel {
+    
+    // MARK: - Load
+    enum Load {
+        struct Request { }
+        struct Response {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+        struct ViewModel {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+    }
+    
+    // MARK: - CheckDates
     enum CheckDates {
         struct Request { 
             let start: String
@@ -15,6 +30,7 @@ enum WishEventCreatorModel {
         }
     }
     
+    // MARK: - CreateEvent
     enum CreateEvent {
         struct Request {
             let title: String
@@ -24,9 +40,9 @@ enum WishEventCreatorModel {
         }
     }
     
+    // MARK: - RouteBack
     enum RouteBack {
         struct Request { }
         struct Response { }
     }
-
 }

@@ -8,6 +8,16 @@
 import UIKit
 
 enum WishMakerModel {
+    // MARK: - Load
+    enum Load {
+        struct Request { }
+        struct Response {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+    }
+    
+    // MARK: - ColorChange
     enum ColorChange {
         struct Request {
             let red: CGFloat
@@ -20,16 +30,18 @@ enum WishMakerModel {
             let blue: CGFloat
         }
         struct ViewModel {
-            let backgroundColor: UIColor
-            let textColor: UIColor
+            let mainColor: UIColor
+            let additionalColor: UIColor
         }
     }
     
+    // MARK: - RouteToWishStoring
     enum RouteToWishStoring {
         struct Request { }
         struct Response { }
     }
     
+    // MARK: - RouteToWishCalendar
     enum RouteToWishCalendar {
         struct Request { }
         struct Response { }

@@ -9,14 +9,17 @@ import UIKit
 
 final class WishStoringViewController: UIViewController {
     
+    // MARK: - Constants
     enum Constants {
         // Common
         static let wishesKey = "wishesKey"
         static let emptyString: String = ""
         static let initError: String = "init(coder:) has not been implemented"
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
         static let buttonFont: UIFont = .boldSystemFont(ofSize: 15)
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
         
         static let tableCornerRadius: CGFloat = 10
         static let tableOffset: CGFloat = 10
@@ -33,6 +36,7 @@ final class WishStoringViewController: UIViewController {
         )
     }
     
+    // MARK: - Fields
     private let interactor: WishStoringBusinessLogic
     private let backButton: UIButton = UIButton()
     private let defaults = UserDefaults.standard
@@ -40,6 +44,7 @@ final class WishStoringViewController: UIViewController {
     var wishes: [WishEntity] = []
     var table: UITableView = UITableView(frame: .zero)
     
+    // MARK: - Lifecycle
     init(interactor: WishStoringBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -56,22 +61,24 @@ final class WishStoringViewController: UIViewController {
         interactor.loadWishes(WishStoringModel.Fetch.Request())
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        interactor.loadController(WishStoringModel.Load.Request())
+    }
+    
+    // MARK: - Private funcs
     private func configureUI() {
-        view.backgroundColor = Constants.lightBlue
+        view.backgroundColor = Constants.black
         configureTable()
         configureBackButton()
     }
     
     private func configureTable() {
-        table.backgroundColor = Constants.lightBlue
+        table.backgroundColor = Constants.black
         table.dataSource = self
         table.separatorStyle = .none
         table.layer.cornerRadius = Constants.tableCornerRadius
         table.isUserInteractionEnabled = true
         table.contentInset = .zero
-//        table.layer.borderColor = UIColor.black.cgColor
-//        table.layer.borderWidth = 1.0
-//        table.separatorColor = UIColor.black
         view.addSubview(table)
         
         table.pin(to: view, Constants.tableOffset)
@@ -82,7 +89,6 @@ final class WishStoringViewController: UIViewController {
     
     private func configureBackButton() {
         backButton.setImage(Constants.backImage, for: .normal)
-        backButton.tintColor = Constants.darkBlue
         
         view.addSubview(backButton)
         
@@ -92,9 +98,11 @@ final class WishStoringViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    @objc
-    private func backButtonTapped() {
-        interactor.backButtonTapped(WishStoringModel.RouteBack.Request())
+    // MARK: - Funcs
+    func updateColors(_ viewModel: WishStoringModel.Load.ViewModel) {
+        view.backgroundColor = viewModel.mainColor
+        table.backgroundColor = viewModel.mainColor
+        backButton.tintColor = viewModel.additionalColor
     }
     
     func displayLoading(_ viewModel: WishStoringModel.Fetch.ViewModel) {
@@ -109,8 +117,15 @@ final class WishStoringViewController: UIViewController {
         table.deselectRow(at: viewModel.indexPath, animated: true)
         table.reloadData()
     }
+    
+    // MARK: - Actions
+    @objc
+    private func backButtonTapped() {
+        interactor.backButtonTapped(WishStoringModel.RouteBack.Request())
+    }
 }
 
+// MARK: - Extensions
 extension WishStoringViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return Constants.tableSections

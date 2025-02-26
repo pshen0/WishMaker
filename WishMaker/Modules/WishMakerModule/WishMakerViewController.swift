@@ -7,18 +7,27 @@
 
 import UIKit
 
+
+
 final class WishMakerViewController: UIViewController {
-    
+    // MARK: - Constants
     enum Constants {
         // Common
         static let initError: String = "init(coder:) has not been implemented"
-        static let red: String = "Red"
-        static let green: String = "Green"
-        static let blue: String = "Blue"
+        static let redText: String = "Red"
+        static let greenText: String = "Green"
+        static let blueText: String = "Blue"
         static let colorIntensity: CGFloat = 0.0
         static let colorSaturation: CGFloat = 1.0
         static let numberLines: Int = 0
-        static let brightnessLevel: Double = 1.5
+        static let brightnessLevel: Double = 1.8
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
+        static let red: UIColor = UIColor.red
+        static let green: UIColor = UIColor.green
+        static let blue: UIColor = UIColor.blue
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
         
         static let titleText: String = "WishMaker"
         static let titleSize: CGFloat = 32
@@ -51,16 +60,16 @@ final class WishMakerViewController: UIViewController {
         static let sliderMax: Double = 1
         
         static let actionStackSpacing: CGFloat = 10
-        static let actionStackTop: CGFloat = 105
+        static let actionStackBottom: CGFloat = 25
     }
     
-    // MARK: - Variables
+    // MARK: - Fields
     private let interactor: WishMakerBusinessLogic
     private let titleView = UILabel()
     private let discriptionView = UILabel()
-    private let sliderRed = CustomSlider(title: Constants.red, min: Constants.sliderMin, max: Constants.sliderMax)
-    private let sliderBlue = CustomSlider(title: Constants.blue, min: Constants.sliderMin, max: Constants.sliderMax)
-    private let sliderGreen = CustomSlider(title: Constants.green, min: Constants.sliderMin, max: Constants.sliderMax)
+    private let sliderRed = CustomSlider(title: Constants.redText, min: Constants.sliderMin, max: Constants.sliderMax)
+    private let sliderBlue = CustomSlider(title: Constants.blueText, min: Constants.sliderMin, max: Constants.sliderMax)
+    private let sliderGreen = CustomSlider(title: Constants.greenText, min: Constants.sliderMin, max: Constants.sliderMax)
     private let addWishButton: UIButton = UIButton(type: .system)
     private let scheduleWishButton: UIButton = UIButton(type: .system)
     private let sliderStack = UIStackView()
@@ -71,7 +80,7 @@ final class WishMakerViewController: UIViewController {
     private var blueLevel = Constants.colorIntensity
     private var greenLevel = Constants.colorIntensity
     
-    
+    // MARK: - Lifecycle
     init(interactor: WishMakerBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -87,9 +96,12 @@ final class WishMakerViewController: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        interactor.loadController(WishMakerModel.Load.Request())
+    }
+    
+    // MARK: - Private funcs
     private func configureUI() {
-        view.backgroundColor = .black
-
         configureTitle()
         configureDiscription()
         configureSlidersStack()
@@ -130,8 +142,9 @@ final class WishMakerViewController: UIViewController {
         
         view.addSubview(sliderStack)
         
-        for slider in [sliderRed, sliderBlue, sliderGreen] {
+        for (slider, color) in zip([sliderRed, sliderBlue, sliderGreen], [Constants.red, Constants.blue, Constants.green]) {
             sliderStack.addArrangedSubview(slider)
+            slider.slider.minimumTrackTintColor = color
         }
 
         sliderStack.pinCenterX(to: view)
@@ -161,7 +174,7 @@ final class WishMakerViewController: UIViewController {
         configureAddWishButton()
         configureScheduleWishButton()
 
-        actionStack.pinTop(to: sliderStack.bottomAnchor, Constants.actionStackTop)
+        actionStack.pinBottom(to: view.safeAreaLayoutGuide.bottomAnchor, Constants.actionStackBottom)
         actionStack.pinCenterX(to: view)
     }
     
@@ -185,12 +198,25 @@ final class WishMakerViewController: UIViewController {
         interactor.changedSliderPosition(request)
     }
     
-    func updateBackground(_ viewModel: WishMakerModel.ColorChange.ViewModel) {
-        view.backgroundColor = viewModel.backgroundColor
-        titleView.textColor = viewModel.textColor
-        discriptionView.textColor = viewModel.textColor
+    // MARK: - Funcs
+    func updateColors(_ viewModel: WishMakerModel.ColorChange.ViewModel) {
+        view.backgroundColor = viewModel.mainColor
+        addWishButton.setTitleColor(viewModel.mainColor, for: .normal)
+        scheduleWishButton.setTitleColor(viewModel.mainColor, for: .normal)
+        sliderRed.titleView.textColor = viewModel.mainColor
+        sliderGreen.titleView.textColor = viewModel.mainColor
+        sliderBlue.titleView.textColor = viewModel.mainColor
+        
+        titleView.textColor = viewModel.additionalColor
+        discriptionView.textColor = viewModel.additionalColor
+        addWishButton.backgroundColor = viewModel.additionalColor
+        scheduleWishButton.backgroundColor = viewModel.additionalColor
+        sliderRed.backgroundColor = viewModel.additionalColor
+        sliderBlue.backgroundColor = viewModel.additionalColor
+        sliderGreen.backgroundColor = viewModel.additionalColor
     }
     
+    // MARK: - Actions
     @objc
     private func addWishButtonPressed() {
         interactor.addWishButtonPressed(WishMakerModel.RouteToWishStoring.Request())
@@ -199,5 +225,23 @@ final class WishMakerViewController: UIViewController {
     @objc
     private func scheduleWishButtonPressed() {
         interactor.scheduleWishButtonPressed(WishMakerModel.RouteToWishCalendar.Request())
+    }
+}
+
+// MARK: - Extensions
+extension UserDefaults {
+    func setColor(_ color: UIColor?, forKey key: String) {
+        guard let color = color else { return }
+        let data = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+        set(data, forKey: key)
+    }
+    
+    func color(forKey key: String) -> UIColor? {
+        guard let data = data(forKey: key) else { return nil }
+        do {
+            return try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)
+        } catch {
+            return nil
+        }
     }
 }

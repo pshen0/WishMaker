@@ -9,14 +9,17 @@ import UIKit
 
 final class WishEventCreatorViewController: UIViewController {
     
+    // MARK: - Constants
     enum Constants {
         // Common
         static let initError: String = "init(coder:) has not been implemented"
         static let saveError: String = "Ошибка сохранения события"
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
         static let formatterString: String = "dd.MM.yyyy"
         static let emptyString: String = ""
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
         
         static let backButtonTop: CGFloat = 20
         static let backButtonLeft: CGFloat = 20
@@ -59,6 +62,7 @@ final class WishEventCreatorViewController: UIViewController {
         )
     }
     
+    // MARK: - Fields
     private let interactor: WishEventCreatorBusinessLogic
     private let backButton: UIButton = UIButton()
     private let creationTitle: UILabel = UILabel()
@@ -71,10 +75,10 @@ final class WishEventCreatorViewController: UIViewController {
     private let addEventButton = UIButton()
     private let creationRule = UILabel()
     
-    // MARK: - Variables
     var fieldsStack: UIStackView = UIStackView()
     var onEventAdded: (() -> Void)?
     
+    // MARK: - Lifecycle
     init(interactor: WishEventCreatorBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -90,8 +94,12 @@ final class WishEventCreatorViewController: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        interactor.loadController(WishEventCreatorModel.Load.Request())
+    }
+    
+    // MARK: - Private funcs
     private func configureUI() {
-        view.backgroundColor = Constants.lightBlue
         configureBackButton()
         configureViewTitle()
         configuredateStartField()
@@ -105,7 +113,6 @@ final class WishEventCreatorViewController: UIViewController {
     
     private func configureBackButton() {
         backButton.setImage(Constants.backImage, for: .normal)
-        backButton.tintColor = Constants.darkBlue
         
         view.addSubview(backButton)
         
@@ -118,7 +125,6 @@ final class WishEventCreatorViewController: UIViewController {
     private func configureViewTitle() {
         creationTitle.text = Constants.titleText
         creationTitle.font = UIFont.boldSystemFont(ofSize: Constants.titleSize)
-        creationTitle.textColor = Constants.darkBlue
         
         view.addSubview(creationTitle)
         
@@ -151,7 +157,7 @@ final class WishEventCreatorViewController: UIViewController {
         
         for (field, label) in zip([titleTextField, noteTextField, dateStartTextField, dateEndTextField], Constants.fieldsLabels) {
             field.backgroundColor = .white
-            field.textColor = Constants.darkBlue
+            field.textColor = Constants.black
             field.layer.cornerRadius = Constants.fieldRadius
             field.setLeftPaddingPoints(Constants.fieldsPadding)
             field.attributedPlaceholder = NSAttributedString(string: label, attributes: Constants.fieldsAttribute)
@@ -168,32 +174,41 @@ final class WishEventCreatorViewController: UIViewController {
     
     private func configureAddEventButton() {
         addEventButton.setTitle(Constants.addEventButtonTitle, for: .normal)
-        addEventButton.backgroundColor = Constants.darkBlue
-        addEventButton.setTitleColor(.white, for: .normal)
         addEventButton.titleLabel?.font = Constants.buttonFont
         addEventButton.layer.cornerRadius = Constants.addEventButtonRadius
         
         creationRule.text = Constants.creationRuleText
         creationRule.numberOfLines = Constants.creationRulesLines
         creationRule.lineBreakMode = .byWordWrapping
-        creationRule.textColor = Constants.darkBlue
         creationRule.font = Constants.creationRuleFont
         creationRule.textAlignment = .center
         creationRule.isHidden = true
         
-        view.addSubview(addEventButton)
-        view.addSubview(creationRule)
+        for subview in [addEventButton, creationRule] {
+            view.addSubview(subview)
+            subview.pinCenterX(to: view)
+        }
         
-        creationRule.pinCenterX(to: view)
         creationRule.pinTop(to: fieldsStack.bottomAnchor, Constants.creationRuleTop)
         addEventButton.setWidth(Constants.addEventButtonWidth)
         addEventButton.setHeight(Constants.addEventButtonHeight)
         addEventButton.pinTop(to: creationRule.bottomAnchor, Constants.addEventButtonTop)
-        addEventButton.pinCenterX(to: view)
         
         addEventButton.addTarget(self, action: #selector(addEventTapped), for: .touchUpInside)
     }
     
+    // MARK: - Funcs
+    func updateColors(_ viewModel: WishEventCreatorModel.Load.ViewModel) {
+        view.backgroundColor = viewModel.mainColor
+        addEventButton.setTitleColor(viewModel.mainColor, for: .normal)
+        
+        creationTitle.textColor = viewModel.additionalColor
+        backButton.tintColor = viewModel.additionalColor
+        addEventButton.backgroundColor = viewModel.additionalColor
+        creationRule.textColor = viewModel.additionalColor
+    }
+    
+    // MARK: - Actions
     @objc
     private func backButtonTapped() {
         interactor.backButtonTapped(WishEventCreatorModel.RouteBack.Request())
@@ -246,6 +261,7 @@ final class WishEventCreatorViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
 extension UITextField {
     func setLeftPaddingPoints(_ amount:CGFloat){
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.height))

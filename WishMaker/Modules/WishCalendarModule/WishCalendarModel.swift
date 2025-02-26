@@ -8,6 +8,21 @@
 import UIKit
 
 enum WishCalendarModel {
+    
+    // MARK: - Load
+    enum Load {
+        struct Request { }
+        struct Response {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+        struct ViewModel {
+            let mainColor: UIColor
+            let additionalColor: UIColor
+        }
+    }
+    
+    // MARK: - Fetch
     enum Fetch {
         struct Request { }
         struct Response {
@@ -15,6 +30,8 @@ enum WishCalendarModel {
         }
         struct ViewModel { }
     }
+    
+    // MARK: - Delete
     enum Delete {
         struct Request {
             let indexPath: IndexPath
@@ -27,6 +44,7 @@ enum WishCalendarModel {
         }
     }
     
+    // MARK: - RouteToWishEventCreator
     enum RouteToWishEventCreator {
         struct Request { }
         struct Response {
@@ -34,6 +52,7 @@ enum WishCalendarModel {
         }
     }
     
+    // MARK: - RouteBack
     enum RouteBack {
         struct Request { }
         struct Response { }

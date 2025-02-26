@@ -7,7 +7,9 @@
 
 import Foundation
 
+// MARK: - BusinessLogic protocol
 protocol WishCalendarBusinessLogic {
+    func loadController(_ request: WishCalendarModel.Load.Request)
     func loadEvents(_ request: WishCalendarModel.Fetch.Request)
     func deleteEvent(_ request: WishCalendarModel.Delete.Request)
     func addEventButtonTapped(_ request: WishCalendarModel.RouteToWishEventCreator.Request)
@@ -15,12 +17,22 @@ protocol WishCalendarBusinessLogic {
 }
 
 final class WishCalendarInteractor: WishCalendarBusinessLogic {
-    
+    // MARK: - Fields
     private let presenter: WishCalendarPresentationLogic
     private let eventsService = CoreDataEventStack.shared
     
+    // MARK: - Lifecycle
     init(presenter: WishCalendarPresentationLogic) {
         self.presenter = presenter
+    }
+    
+    // MARK: - Funcs
+    func loadController(_ request: WishCalendarModel.Load.Request) {
+        let savedMainColor = UserDefaults.standard.color(forKey: WishCalendarViewController.Constants.mainColorID) ??
+        WishCalendarViewController.Constants.black
+        let savedAdditionalColor = UserDefaults.standard.color(forKey: WishCalendarViewController.Constants.additionalColorID) ??
+        WishCalendarViewController.Constants.white
+        presenter.setColors(WishCalendarModel.Load.Response(mainColor: savedMainColor, additionalColor: savedAdditionalColor))
     }
     
     func loadEvents(_ request: WishCalendarModel.Fetch.Request) {

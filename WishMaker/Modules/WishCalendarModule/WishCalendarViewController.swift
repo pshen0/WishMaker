@@ -8,13 +8,15 @@
 import UIKit
 
 final class WishCalendarViewController: UIViewController {
-    
+    // MARK: - Constants
     enum Constants {
         // Common
         static let initError: String = "init(coder:) has not been implemented"
-        static let lightBlue: UIColor = UIColor(red: 201/255.0, green: 231/255.0, blue: 255/255.0, alpha: 1.0)
-        static let darkBlue: UIColor = UIColor(red: 41/255.0, green: 69/255.0, blue: 140/255.0, alpha: 1.0)
+        static let white: UIColor = UIColor.white
+        static let black: UIColor = UIColor.black
         static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        static let mainColorID: String = "mainColor"
+        static let additionalColorID: String = "additionalColor"
         
         static let collectionSpacing: CGFloat = 0
         static let collectionTop: CGFloat = 40
@@ -41,6 +43,7 @@ final class WishCalendarViewController: UIViewController {
         )
     }
     
+    // MARK: - Fields
     private let interactor: WishCalendarBusinessLogic
     private let addEventButton: UIButton = UIButton()
     private let backButton: UIButton = UIButton()
@@ -51,6 +54,7 @@ final class WishCalendarViewController: UIViewController {
     
     var events: [EventEntity] = []
     
+    // MARK: - Lifecycle
     init(interactor: WishCalendarBusinessLogic) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -70,10 +74,11 @@ final class WishCalendarViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        interactor.loadController(WishCalendarModel.Load.Request())
     }
     
+    // MARK: - Private funcs
     private func configureUI() {
-        view.backgroundColor = Constants.lightBlue
         configureCells()
         configureBackButton()
         configureCollection()
@@ -89,7 +94,6 @@ final class WishCalendarViewController: UIViewController {
     }
     
     private func configureCollection() {
-        collectionView.backgroundColor = Constants.lightBlue
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = Constants.contentInset
@@ -106,7 +110,6 @@ final class WishCalendarViewController: UIViewController {
     
     private func configureAddWishButton() {
         addEventButton.setImage(Constants.addImage, for: .normal)
-        addEventButton.tintColor = Constants.darkBlue
         
         view.addSubview(addEventButton)
         
@@ -118,7 +121,6 @@ final class WishCalendarViewController: UIViewController {
     
     private func configureBackButton() {
         backButton.setImage(Constants.backImage, for: .normal)
-        backButton.tintColor = Constants.darkBlue
         
         view.addSubview(backButton)
         
@@ -126,6 +128,15 @@ final class WishCalendarViewController: UIViewController {
         backButton.pinLeft(to: view.leadingAnchor, Constants.backButtonLeft)
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - Funcs
+    func updateColors(_ viewModel: WishCalendarModel.Load.ViewModel) {
+        view.backgroundColor = viewModel.mainColor
+        collectionView.backgroundColor = viewModel.mainColor
+        
+        addEventButton.tintColor = viewModel.additionalColor
+        backButton.tintColor = viewModel.additionalColor
     }
     
     func displayDeleting(_ viewModel: WishCalendarModel.Delete.ViewModel) {
@@ -136,6 +147,7 @@ final class WishCalendarViewController: UIViewController {
         collectionView.reloadData()
     }
     
+    // MARK: - Actions
     @objc
     private func addEventButtonTapped() {
         interactor.addEventButtonTapped(WishCalendarModel.RouteToWishEventCreator.Request())
@@ -147,6 +159,7 @@ final class WishCalendarViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
 extension WishCalendarViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
