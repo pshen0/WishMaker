@@ -33,7 +33,7 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 Экран **WishCalendar** содержит коллекцию пользовательских событий. События при добавлении сортируются по дате начала от 
 старых к новым сверху вниз. Также экран содержит кнопку "+" для перехода к экрану WishEventCreation.
 
-<img src="WishMaker/Resources/AppDiscriptionImages/Event4.PNG" width="200">
+<img src="WishMaker/Resources/AppDiscriptionImages/Event1.PNG" width="200">
 
 
 Экран **WishEventCreation** содержит текстовые поля и кнопку "Add event" для создания и добавления новых
@@ -41,9 +41,9 @@ WishMaker – мобильное приложение на Swift (UIKit, Xcode) 
 дата окончания события не раньше даты начала. 
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="WishMaker/Resources/AppDiscriptionImages/Event1.PNG" width="200">
   <img src="WishMaker/Resources/AppDiscriptionImages/Event2.PNG" width="200">
   <img src="WishMaker/Resources/AppDiscriptionImages/Event3.PNG" width="200">
+  <img src="WishMaker/Resources/AppDiscriptionImages/Event4.PNG" width="200">
 </div>
 
 Установка и использование проекта
